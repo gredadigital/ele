@@ -1,0 +1,25 @@
+# Ignorar todo por defecto
+*
+
+# Mantener este archivo
+!.gitignore
+
+# Conservar wp-content
+!wp-content/
+
+# Ignorar lo que hay dentro de wp-content por defecto
+wp-content/*
+
+# Guardar todos los themes
+!wp-content/themes/
+!wp-content/themes/**
+
+# Guardar todos los plugins
+!wp-content/plugins/
+!wp-content/plugins/**
+
+# Ignorar uploads
+wp-content/uploads/
+
+# Ignorar dependencias de Node
+node_modules/

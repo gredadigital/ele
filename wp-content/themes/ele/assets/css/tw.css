@@ -1,0 +1,36 @@
+@import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:wght@300;400;500&family=EB+Garamond:ital,wght@0,600;1,700&display=swap');
+
+/* Indica a Tailwind 4 dónde escanear contenido (rutas relativas a este CSS) */
+@source "../../*.php" "../../**/*.php";
+
+@theme{
+    /*COLORES*/
+    --color-primario: #1CA1FE;
+    --color-secundario: #FFEB52;
+    --color-terciario: #F8FCFF;
+    --color-btn: #404040;
+    --color-pastel: #D1DCE5;
+    --color-dark:#23242A;
+    --color-light:#ffffff;
+
+    /* Tipografías */
+    --font-sans: "Noto Sans", system-ui, sans-serif;
+    --font-serif: "EB Garamond", serif;
+
+    /* Pesos */
+    --font-weight-light: 300;   /* Noto Sans Light */
+    --font-weight-regular: 400; /* Noto Sans Regular */
+    --font-weight-medium: 500;  /* Noto Sans Medium */
+    --font-weight-semibold: 600; /* EB Garamond SemiBold */
+    --font-weight-bold: 700;    /* EB Garamond Bold Italic */
+
+}
+@layer base {
+    body {
+        @apply font-sans font-regular;
+    }
+}
+@utility h-screen-safe {
+    height: 100svh;
+}

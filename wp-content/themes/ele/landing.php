@@ -69,9 +69,9 @@ get_header(); ?>
 
 
     <!-- FORMULARIO -->
-    <section id="form" class="mx-auto max-w-md px-4 py-10 grid gap-6">
+    <section id="form" class="mx-auto max-w-md px-4 py-10">
 
-        <form id="ele-contact-form" method="post">
+        <form id="ele-contact-form" method="post" class="grid gap-6">
             <?php wp_nonce_field('ele_contact_form', 'ele_contact_nonce'); ?>
             <fieldset class="grid gap-2">
                 <legend class="font-sans font-medium mb-paddingm2">¿En que estás interesado?</legend>
@@ -243,20 +243,20 @@ get_header(); ?>
     <!-- Fondo -->
     <button
             type="button"
-            class="absolute inset-0 bg-black/60"
+            class="absolute inset-0 bg-black/80"
             data-ele-modal-close
             aria-label="Cerrar modal"
     ></button>
 
     <!-- Contenido -->
     <div
-            class="relative mx-auto mt-24 max-w-md rounded-2xl bg-white p-6 shadow-2xl"
+            class="relative mx-auto mt-24 w-[90%] rounded-2xl bg-black bg-[url(../images/brujula.png)] bg-no-repeat bg-[right_20px_center] bg-position-x p-6 shadow-2xl"
             tabindex="-1"
     >
         <!-- Cerrar -->
         <button
                 type="button"
-                class="absolute right-3 top-3 inline-flex h-8 w-8 items-center justify-center rounded-full ring-1 ring-gray-300 hover:bg-gray-50"
+                class="absolute right-3 top-3 inline-flex h-8 w-8 items-center justify-center rounded-full ring-1 ring-gray-300 hover:bg-gray-50 text-white"
                 data-ele-modal-close
                 aria-label="Cerrar"
         >
@@ -264,23 +264,21 @@ get_header(); ?>
         </button>
 
         <!-- Contenido textual -->
-        <div class="grid gap-3">
-            <p id="ele-gcal-title" class="font-serif text-21 font-bold italic">
-                ¡Perfecto, gracias!
-            </p>
-            <p id="ele-gcal-desc" class="font-sans text-base font-light">
-                Sigue aquí para agendar tu reunión diagnóstico.
-            </p>
+        <div class="grid gap-3 w-[70%]">
+
+
+                <p id="ele-gcal-title" class="font-serif text-21 font-bold italic text-white">
+                    ¡Perfecto, gracias!
+                </p>
+                <p id="ele-gcal-desc" class="font-sans text-21 font-light text-white">
+                    Sigue aquí para agendar tu reunión diagnóstico.
+                </p>
 
             <!-- Slot del botón de Google Calendar -->
-            <div class="mt-2 flex justify-center">
-                <?php echo do_shortcode('[gcal_button label="Agenda aquí"]'); ?>
+            <div class="mt-2">
+                <?php echo do_shortcode('[gcal_button label="Agenda aquí" bg="bg-secundario" text="text-black" font="font-sans font-medium"]'); ?>
             </div>
 
-            <!-- (Opcional) mensaje secundario -->
-            <p class="mt-3 text-center text-sm text-gray-500">
-                También te hemos enviado un email con la confirmación del registro.
-            </p>
         </div>
     </div>
 </div>

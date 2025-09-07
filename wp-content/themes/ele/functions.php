@@ -50,22 +50,24 @@ add_shortcode('gcal_button', function ($atts) {
     $atts = shortcode_atts([
         'url'   => 'https://calendar.google.com/calendar/appointments/schedules/AcZssZ18rAPSDOo4f2nxVDn2Ps74qwyOCRGFNsZPFVj1fgEIfjPR8ORiPf0XBtogrOhlu6zisIFrUcru?gv=true',
         'label' => 'Haz una cita',
-        'color' => '#000'
+        'color' => '#000',            // color para el modal de Google
+        'bg'    => 'bg-black',        // clase Tailwind de fondo
+        'text'  => 'text-white',      // clase Tailwind de texto
+        'font'  => 'font-serif font-regular' // clases Tailwind de tipografía
     ], $atts, 'gcal_button');
 
     $id = 'gcal-mount-' . wp_generate_uuid4();
 
-    // Contenedor centrado + botón Tailwind visible + mount oculto
     return sprintf(
-        '<div class="gcal-proxy flex justify-center mt-8">
+        '<div class="gcal-proxy flex justify-center mt-4">
         <button type="button"
                 class="inline-flex items-center justify-center px-6 py-3 rounded-full
-                       bg-black text-white hover:bg-black/90 transition
+                       transition hover:opacity-90
                        focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2
-                       font-sans font-regular"
+                       %4$s %5$s %6$s"
                 data-gcal-mount="%1$s"
                 data-url="%2$s"
-                data-color="%4$s"
+                data-color="%7$s"
                 data-label="%3$s">
           %3$s
         </button>
@@ -74,6 +76,10 @@ add_shortcode('gcal_button', function ($atts) {
         esc_attr($id),
         esc_url($atts['url']),
         esc_html($atts['label']),
+        esc_attr($atts['bg']),
+        esc_attr($atts['text']),
+        esc_attr($atts['font']),
         esc_attr($atts['color'])
     );
 });
+

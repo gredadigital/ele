@@ -5,201 +5,215 @@ get_header(); ?>
 
 <main id="ele-landing" class="bg-white text-gray-900">
 
-    <!-- HEADER (móvil) -->
-    <header class="sticky top-0 z-50 bg-white/90 backdrop-blur border-b">
-        <div class="mx-auto max-w-md px-4 h-14 flex items-center justify-between">
-            <a href="#hero" class="font-semibold">ELE</a>
-            <button type="button" aria-label="Menú" class="p-2 rounded-lg ring-1 ring-gray-300">
-                <span class="block w-5 h-0.5 bg-gray-900"></span>
-                <span class="block w-5 h-0.5 bg-gray-900 mt-1"></span>
-                <span class="block w-5 h-0.5 bg-gray-900 mt-1"></span>
-            </button>
-        </div>
-    </header>
+
 
     <!-- HERO -->
-    <section id="hero" class="mx-auto max-w-md px-4 py-10 grid gap-5">
-        <p class="text-sm tracking-wide uppercase text-gray-500">No es magia</p>
-        <h1 class="text-3xl font-bold leading-tight">
-            Es <span class="underline underline-offset-4">branding bien hecho</span><br>(pero se siente mágico).
-        </h1>
+    <section id="hero" class="mx-auto max-w-md px-paddingm2 py-paddingm2 flex-col gap-5">
+        <div><p class="text-21 font-serif font-bold italic text-center">No es magia</p>
+            <h1 class="text-23 font-sans font-light leading-tight text-center  mb-paddingm">
+                Es branding bien hecho<br>(pero se siente mágico).
+            </h1>
+        </div>
+
+        <div class="grid gap-5 mb-big">
+            <div class="justify-self-start">
+                <iframe width="320" height="180"
+                        src="https://www.youtube.com/embed/qwRrP24jFm4"
+                        title="YouTube video player"
+                        frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        allowfullscreen>
+                </iframe>
+                <h2 class="font-serif font-bold italic text-21">Branding</h2>
+        </div>
+        <div class="justify-self-end">
+            <iframe width="320" height="180"
+                    src="https://www.youtube.com/embed/DQuKJFvU-d0"
+                    title="YouTube video player"
+                    frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    allowfullscreen>
+            </iframe>
+            <h2 class="font-serif font-bold italic text-21">Rebranding</h2>
+        </div>
+        <div class="justify-self-start">
+            <iframe width="320" height="180"
+                    src="https://www.youtube.com/embed/jmeAGwpsbQw"
+                    title="YouTube video player"
+                    frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    allowfullscreen>
+            </iframe>
+            <h2 class="font-serif font-bold italic text-21">Ilustración</h2>
+        </div>
+        </div>
 
         <!-- Badge de cupos + CTA -->
-        <div class="rounded-2xl bg-gray-50 ring-1 ring-gray-200 p-4">
-            <p class="text-base">
-                <strong class="font-semibold">Últimos 3 cupos</strong><br>
-                para proyectos de <strong>branding</strong> este mes.
+        <div class="relative mb-big">
+            <p class="font-serif font-bold text-27 text-center leading-tight">
+                Últimos 3 cupos <br> para proyectos de branding este mes.
             </p>
-            <a href="#form" class="mt-3 inline-flex w-full items-center justify-center rounded-xl px-4 py-3 bg-black text-white font-medium">
-                Haz una cita
-            </a>
+            <img src="<?php echo get_template_directory_uri() ?>/assets/images/circulogesto.svg" alt="" class="absolute top-0 left-[50%] -translate-x-1/2 ">
+            <?php echo do_shortcode('[gcal_button label="Haz una cita"]'); ?>
+
         </div>
     </section>
 
     <!-- CTA intermedio -->
-    <section class="mx-auto max-w-md px-4 py-8 grid gap-3">
-        <h2 class="text-2xl font-semibold leading-tight">
-            ¿Listo para <span class="italic">transformar tu negocio</span><br>con diseño?
-        </h2>
-        <p class="text-gray-600">De genérica, nada. Hagamos que tu marca brille.</p>
-        <a href="#form" class="mt-1 inline-flex w-full items-center justify-center rounded-xl px-4 py-3 bg-black text-white font-medium">
-            Empieza
-        </a>
+    <section class="mx-auto max-w-md px-4 py-8">
+             <p class="font-serif font-bold italic text-21">De genérica, nada.
+             </p>
+        <p class="font-sans font-light text-21">
+                 Hagamos que tu marca brille.</p>
     </section>
 
-    <!-- CHIPS / CATEGORÍAS -->
-    <section class="mx-auto max-w-md px-4 pb-6">
-        <div class="flex flex-wrap gap-2">
-            <span class="px-3 py-2 rounded-xl ring-1 ring-gray-300 text-sm">Branding</span>
-            <span class="px-3 py-2 rounded-xl ring-1 ring-gray-300 text-sm">Illustración</span>
-            <span class="px-3 py-2 rounded-xl ring-1 ring-gray-300 text-sm">Rebranding</span>
-            <span class="px-3 py-2 rounded-xl ring-1 ring-gray-300 text-sm">Packaging Diseño editorial</span>
-        </div>
-    </section>
-
-    <!-- CLIENTES -->
-    <section class="mx-auto max-w-md px-4 py-8 grid gap-4">
-        <ul class="grid gap-3">
-            <li class="rounded-xl ring-1 ring-gray-200 p-4">
-                <p class="font-medium">Cecilia Guzmán De Rojas</p>
-                <p class="text-sm text-gray-500">Mapochi</p>
-            </li>
-            <li class="rounded-xl ring-1 ring-gray-200 p-4">
-                <p class="font-medium">Mariana Franco</p>
-                <p class="text-sm text-gray-500">MF – Studio de Arquitectura</p>
-            </li>
-            <li class="rounded-xl ring-1 ring-gray-200 p-4">
-                <p class="font-medium">Javier Veneros</p>
-                <p class="text-sm text-gray-500">Jacinto</p>
-            </li>
-        </ul>
-    </section>
 
     <!-- FORMULARIO -->
-    <section id="form" class="mx-auto max-w-md px-4 py-10 border-t grid gap-6">
-        <h2 class="text-2xl font-semibold leading-tight">Agenda aquí</h2>
-        <p class="text-gray-600">¡Perfecto, gracias!<br>Sigue aquí para agendar tu reunión diagnóstico</p>
+    <section id="form" class="mx-auto max-w-md px-4 py-10 grid gap-6">
 
-        <!-- ¿En qué estás interesado? (chips/radios) -->
-        <fieldset class="grid gap-2">
-            <legend class="text-sm font-medium">¿En que estás interesado? *</legend>
-            <div class="grid grid-cols-2 gap-2">
-                <!-- Chip -->
-                <label class="relative">
-                    <input type="radio" name="interes" value="branding" class="peer sr-only" required>
-                    <span class="block rounded-xl ring-1 ring-gray-300 px-3 py-2 peer-checked:bg-black peer-checked:text-white">Branding</span>
-                </label>
-                <label class="relative">
-                    <input type="radio" name="interes" value="ilustracion" class="peer sr-only" required>
-                    <span class="block rounded-xl ring-1 ring-gray-300 px-3 py-2 peer-checked:bg-black peer-checked:text-white">Illustración</span>
-                </label>
-                <label class="relative">
-                    <input type="radio" name="interes" value="rebranding" class="peer sr-only" required>
-                    <span class="block rounded-xl ring-1 ring-gray-300 px-3 py-2 peer-checked:bg-black peer-checked:text-white">Rebranding</span>
-                </label>
-                <label class="relative col-span-2">
-                    <input type="radio" name="interes" value="packaging-editorial" class="peer sr-only" required>
-                    <span class="block rounded-xl ring-1 ring-gray-300 px-3 py-2 peer-checked:bg-black peer-checked:text-white">
-            Packaging Diseño editorial
-          </span>
-                </label>
+        <form id="ele-contact-form" method="post">
+            <?php wp_nonce_field('ele_contact_form', 'ele_contact_nonce'); ?>
+            <fieldset class="grid gap-2">
+                <legend class="font-sans font-medium mb-paddingm2">¿En que estás interesado?</legend>
+                <div class="flex flex-wrap gap-4">
+                    <!-- Chip -->
+                    <label class="relative">
+                        <input type="radio" name="interes" value="branding" class="peer sr-only" required>
+                        <span class="inline-block rounded-xl ring-1 ring-gray-300 px-3 py-2 peer-checked:bg-black peer-checked:text-white">Ilustración</span>
+                    </label>
+                    <label class="relative">
+                        <input type="radio" name="interes" value="ilustracion" class="peer sr-only" required>
+                        <span class="inline-block rounded-xl ring-1 ring-gray-300 px-3 py-2 peer-checked:bg-black peer-checked:text-white">Branding</span>
+                    </label>
+                    <label class="relative">
+                        <input type="radio" name="interes" value="rebranding" class="peer sr-only" required>
+                        <span class="inline-block rounded-xl ring-1 ring-gray-300 px-3 py-2 peer-checked:bg-black peer-checked:text-white">Packaging</span>
+                    </label>
+                    <label class="relative col-span-2">
+                        <input type="radio" name="interes" value="packaging-editorial" class="peer sr-only" required>
+                        <span class="inline-block rounded-xl ring-1 ring-gray-300 px-3 py-2 peer-checked:bg-black peer-checked:text-white">Diseño editorial</span>
+                    </label>
+                </div>
+            </fieldset>
+
+            <!-- Cuéntanos sobre ti -->
+            <div class="grid gap-4">
+                <h3 class="font-sans font-medium">Cuéntanos sobre ti</h3>
+
+                <div class="grid gap-1">
+                    <label for="nombre" class="font-regular">Nombre completo <span
+                                class="text-primario font-bold">*</span></label>
+                    <input id="nombre" name="nombre" type="text" required
+                           class="rounded-xl ring-1 ring-gray-300 px-4 py-3 outline-none focus:ring-2 focus:ring-black"
+                           placeholder="Tu nombre y apellido">
+                </div>
+
+                <div class="grid gap-1">
+                    <label for="telefono" class="font-regular">Teléfono móvil <span
+                                class="text-primario font-bold">*</span></label>
+                    <input id="telefono" name="telefono" type="tel" required
+                           class="rounded-xl ring-1 ring-gray-300 px-4 py-3 outline-none focus:ring-2 focus:ring-black"
+                           placeholder="+591 …">
+                </div>
+
+                <div class="grid gap-1">
+                    <label for="email" class="font-regular">Correo electrónico <span
+                                class="text-primario font-bold">*</span></label>
+                    <input id="email" name="email" type="email" required
+                           class="rounded-xl ring-1 ring-gray-300 px-4 py-3 outline-none focus:ring-2 focus:ring-black"
+                           placeholder="tucorreo@ejemplo.com">
+                </div>
+
+                <div class="grid gap-1">
+                    <label for="empresa" class="font-regular">Nombre de Organización/Empresa <span
+                                class="text-primario font-bold">*</span></label>
+                    <input id="empresa" name="empresa" type="text" required
+                           class="rounded-xl ring-1 ring-gray-300 px-4 py-3 outline-none focus:ring-2 focus:ring-black"
+                           placeholder="Nombre de tu empresa">
+                </div>
             </div>
-        </fieldset>
 
-        <!-- Cuéntanos sobre ti -->
-        <div class="grid gap-4">
-            <h3 class="text-sm font-medium">Cuéntanos sobre ti</h3>
+            <!-- Presupuesto ($us.)* (chips/radios) -->
+            <fieldset class="space-y-2">
+                <legend class="font-medium">Presupuesto ($us.) <span class="text-primario font-bold">*</span></legend>
 
+                <label class="flex items-center gap-2">
+                    <input type="radio" name="presupuesto" value=">500" required class="w-5 h-5 accent-primario">
+                    <span class="font-light">> 500</span>
+                </label>
+
+                <label class="flex items-center gap-2">
+                    <input type="radio" name="presupuesto" value="500-1000" required class="w-5 h-5 accent-primario">
+                    <span class="font-light">500 - 1,000</span>
+                </label>
+
+                <label class="flex items-center gap-2">
+                    <input type="radio" name="presupuesto" value="1000-2000" required class="w-5 h-5 accent-primario">
+                    <span class="font-light">1,000 - 2,000</span>
+                </label>
+
+                <label class="flex items-center gap-2">
+                    <input type="radio" name="presupuesto" value="<2000" required class="w-5 h-5 accent-primario">
+                    <span class="font-light">< 2,000</span>
+                </label>
+            </fieldset>
+
+
+            <!-- Descripción del proyecto -->
             <div class="grid gap-1">
-                <label for="nombre" class="text-sm">Nombre completo *</label>
-                <input id="nombre" name="nombre" type="text" required
-                       class="rounded-xl ring-1 ring-gray-300 px-4 py-3 outline-none focus:ring-2 focus:ring-black"
-                       placeholder="Tu nombre y apellido">
+                <label for="descripcion" class="font-medium">Descripción del proyecto <span
+                            class="text-primario font-bold">*</span></label>
+                <textarea id="descripcion" name="descripcion" rows="5" required
+                          class="rounded-xl ring-1 ring-gray-300 px-4 py-3 outline-none focus:ring-2 focus:ring-black"
+                          placeholder="Cuéntanos sobre tu proyecto..."></textarea>
             </div>
 
-            <div class="grid gap-1">
-                <label for="telefono" class="text-sm">Teléfono móvil *</label>
-                <input id="telefono" name="telefono" type="tel" required
-                       class="rounded-xl ring-1 ring-gray-300 px-4 py-3 outline-none focus:ring-2 focus:ring-black"
-                       placeholder="+591 …">
+            <!-- ¿Cómo te enteraste? (chips/radios) -->
+            <fieldset class="space-y-2">
+                <legend class="text-sm font-medium">¿Cómo te enteraste de nosotros?*</legend>
+
+                <label class="flex items-center gap-2">
+                    <input type="radio" name="referencia" value="instagram" required class="w-5 h-5 accent-primario">
+                    <span class="font-light">Instagram</span>
+                </label>
+
+                <label class="flex items-center gap-2">
+                    <input type="radio" name="referencia" value="linkedin" required class="w-5 h-5 accent-primario">
+                    <span class="font-light">LinkedIn</span>
+                </label>
+
+                <label class="flex items-center gap-2">
+                    <input type="radio" name="referencia" value="facebook" required class="w-5 h-5 accent-primario">
+                    <span class="font-light">Facebook</span>
+                </label>
+
+                <label class="flex items-center gap-2">
+                    <input type="radio" name="referencia" value="otro" required class="w-5 h-5 accent-primario">
+                    <span class="font-light">Otro</span>
+                </label>
+            </fieldset>
+
+
+            <!-- Enviar -->
+            <div class="pt-2 flex justify-center">
+                <button type="submit"
+                        class="inline-flex items-center justify-center rounded-full px-paddingm py-3 bg-black text-white font-regular">
+                    Enviar
+                </button>
+            </div>
+            <div class="hidden">
+                <label for="website">Deja este campo vacío</label>
+                <input type="text" id="website" name="website" tabindex="-1" autocomplete="off">
             </div>
 
-            <div class="grid gap-1">
-                <label for="email" class="text-sm">Correo electrónico *</label>
-                <input id="email" name="email" type="email" required
-                       class="rounded-xl ring-1 ring-gray-300 px-4 py-3 outline-none focus:ring-2 focus:ring-black"
-                       placeholder="tucorreo@ejemplo.com">
-            </div>
-
-            <div class="grid gap-1">
-                <label for="empresa" class="text-sm">Nombre de Organización/Empresa *</label>
-                <input id="empresa" name="empresa" type="text" required
-                       class="rounded-xl ring-1 ring-gray-300 px-4 py-3 outline-none focus:ring-2 focus:ring-black"
-                       placeholder="Nombre de tu empresa">
-            </div>
-        </div>
-
-        <!-- Presupuesto ($us.)* (chips/radios) -->
-        <fieldset class="grid gap-2">
-            <legend class="text-sm font-medium">Presupuesto ($us.)*</legend>
-            <div class="grid grid-cols-2 gap-2">
-                <label class="relative">
-                    <input type="radio" name="presupuesto" value="<500" class="peer sr-only" required>
-                    <span class="block rounded-xl ring-1 ring-gray-300 px-3 py-2 text-center peer-checked:bg-black peer-checked:text-white">&lt; 500</span>
-                </label>
-                <label class="relative">
-                    <input type="radio" name="presupuesto" value="500-1000" class="peer sr-only" required>
-                    <span class="block rounded-xl ring-1 ring-gray-300 px-3 py-2 text-center peer-checked:bg-black peer-checked:text-white">500 - 1,000</span>
-                </label>
-                <label class="relative">
-                    <input type="radio" name="presupuesto" value="1000-2000" class="peer sr-only" required>
-                    <span class="block rounded-xl ring-1 ring-gray-300 px-3 py-2 text-center peer-checked:bg-black peer-checked:text-white">1,000 - 2,000</span>
-                </label>
-                <label class="relative">
-                    <input type="radio" name="presupuesto" value=">2000" class="peer sr-only" required>
-                    <span class="block rounded-xl ring-1 ring-gray-300 px-3 py-2 text-center peer-checked:bg-black peer-checked:text-white">&gt; 2,000</span>
-                </label>
-            </div>
-        </fieldset>
-
-        <!-- Descripción del proyecto -->
-        <div class="grid gap-1">
-            <label for="descripcion" class="text-sm font-medium">Descripción del proyecto*</label>
-            <textarea id="descripcion" name="descripcion" rows="5" required
-                      class="rounded-xl ring-1 ring-gray-300 px-4 py-3 outline-none focus:ring-2 focus:ring-black"
-                      placeholder="Cuéntanos sobre tu proyecto..."></textarea>
-        </div>
-
-        <!-- ¿Cómo te enteraste? (chips/radios) -->
-        <fieldset class="grid gap-2">
-            <legend class="text-sm font-medium">¿Cómo te enteraste de nosotros?*</legend>
-            <div class="grid grid-cols-2 gap-2">
-                <label class="relative">
-                    <input type="radio" name="referencia" value="instagram" class="peer sr-only" required>
-                    <span class="block rounded-xl ring-1 ring-gray-300 px-3 py-2 text-center peer-checked:bg-black peer-checked:text-white">Instagram</span>
-                </label>
-                <label class="relative">
-                    <input type="radio" name="referencia" value="linkedin" class="peer sr-only" required>
-                    <span class="block rounded-xl ring-1 ring-gray-300 px-3 py-2 text-center peer-checked:bg-black peer-checked:text-white">LinkedIn</span>
-                </label>
-                <label class="relative">
-                    <input type="radio" name="referencia" value="facebook" class="peer sr-only" required>
-                    <span class="block rounded-xl ring-1 ring-gray-300 px-3 py-2 text-center peer-checked:bg-black peer-checked:text-white">Facebook</span>
-                </label>
-                <label class="relative">
-                    <input type="radio" name="referencia" value="otro" class="peer sr-only" required>
-                    <span class="block rounded-xl ring-1 ring-gray-300 px-3 py-2 text-center peer-checked:bg-black peer-checked:text-white">Otro</span>
-                </label>
-            </div>
-        </fieldset>
-
-        <!-- Enviar -->
-        <div class="pt-2">
-            <button type="submit" class="w-full inline-flex items-center justify-center rounded-xl px-4 py-3 bg-black text-white font-medium">
-                Enviar
-            </button>
-        </div>
+        </form>
     </section>
+    <section class="px-paddingm2 py-big">
+        <p class="text-center font-sans font-light text-27 tracking-tight">¿Listo para transformar tu negocio</p>
+        <p class="text-center font-serif font-bold text-27 italic">con diseño?</p>
+    </section>
+
+
 
     <!-- FOOTER -->
     <footer class="mt-10 border-t">
@@ -217,24 +231,60 @@ get_header(); ?>
         </div>
     </footer>
 </main>
+<!-- Modal: Agendar diagnóstico -->
+<div
+        id="ele-gcal-modal"
+        class="fixed inset-0 z-50 hidden"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="ele-gcal-title"
+        aria-describedby="ele-gcal-desc"
+>
+    <!-- Fondo -->
+    <button
+            type="button"
+            class="absolute inset-0 bg-black/60"
+            data-ele-modal-close
+            aria-label="Cerrar modal"
+    ></button>
 
-<!-- Google Calendar Appointment Scheduling begin -->
-<link href="https://calendar.google.com/calendar/scheduling-button-script.css" rel="stylesheet">
-<script src="https://calendar.google.com/calendar/scheduling-button-script.js" async></script>
-<script>
-    (function() {
-        var target = document.currentScript;
-        window.addEventListener('load', function() {
-            calendar.schedulingButton.load({
-                url: 'https://calendar.google.com/calendar/appointments/schedules/AcZssZ18rAPSDOo4f2nxVDn2Ps74qwyOCRGFNsZPFVj1fgEIfjPR8ORiPf0XBtogrOhlu6zisIFrUcru?gv=true',
-                color: '#039BE5',
-                label: "Agenda aqu\xED",
-                target,
-            });
-        });
-    })();
-</script>
-<!-- end Google Calendar Appointment Scheduling -->
+    <!-- Contenido -->
+    <div
+            class="relative mx-auto mt-24 max-w-md rounded-2xl bg-white p-6 shadow-2xl"
+            tabindex="-1"
+    >
+        <!-- Cerrar -->
+        <button
+                type="button"
+                class="absolute right-3 top-3 inline-flex h-8 w-8 items-center justify-center rounded-full ring-1 ring-gray-300 hover:bg-gray-50"
+                data-ele-modal-close
+                aria-label="Cerrar"
+        >
+            ×
+        </button>
+
+        <!-- Contenido textual -->
+        <div class="grid gap-3">
+            <p id="ele-gcal-title" class="font-serif text-21 font-bold italic">
+                ¡Perfecto, gracias!
+            </p>
+            <p id="ele-gcal-desc" class="font-sans text-base font-light">
+                Sigue aquí para agendar tu reunión diagnóstico.
+            </p>
+
+            <!-- Slot del botón de Google Calendar -->
+            <div class="mt-2 flex justify-center">
+                <?php echo do_shortcode('[gcal_button label="Agenda aquí"]'); ?>
+            </div>
+
+            <!-- (Opcional) mensaje secundario -->
+            <p class="mt-3 text-center text-sm text-gray-500">
+                También te hemos enviado un email con la confirmación del registro.
+            </p>
+        </div>
+    </div>
+</div>
+
 
 
 <?php get_footer(); ?>

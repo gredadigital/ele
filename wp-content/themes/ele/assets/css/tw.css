@@ -1,5 +1,6 @@
 @import "tailwindcss";
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:wght@300;400;500&family=EB+Garamond:ital,wght@0,600;1,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:wght@300;400;500&family=EB+Garamond:ital,wght@0,600;0,700;1,700&display=swap');
+
 
 /* Indica a Tailwind 4 dónde escanear contenido (rutas relativas a este CSS) */
 @source "../../*.php" "../../**/*.php";
@@ -13,10 +14,11 @@
     --color-pastel: #D1DCE5;
     --color-dark:#23242A;
     --color-light:#ffffff;
+    --color-azulgris: #98B6CB;
 
     /* Tipografías */
     --font-sans: "Noto Sans", system-ui, sans-serif;
-    --font-serif: "EB Garamond", serif;
+    --font-serif: "EB Garamond";
 
     /* Pesos */
     --font-weight-light: 300;   /* Noto Sans Light */
@@ -24,6 +26,29 @@
     --font-weight-medium: 500;  /* Noto Sans Medium */
     --font-weight-semibold: 600; /* EB Garamond SemiBold */
     --font-weight-bold: 700;    /* EB Garamond Bold Italic */
+
+    /* Tamaño */
+
+    --text-14:14px;
+    --text-17:18px;
+    --text-21: 21px;
+    --text-23:23px;
+    --text-24:24px;
+    --text-27:27px;
+
+    /* Spacers */
+
+    --spacing-paddingm: 32px;
+    --spacing-paddingm2: 16px;
+    --spacing-logo-w: 30px;
+    --spacing-logo-h: 37px;
+    --spacing-big:120px;
+
+        /* Tamaños de elementos*/
+
+
+
+
 
 }
 @layer base {

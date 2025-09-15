@@ -45,6 +45,18 @@ add_action('wp_enqueue_scripts', function () {
         );
     }
 });
+if (!function_exists('ele_sanitize_tw_classes')) {
+    /**
+     * Permite únicamente caracteres seguros para clases Tailwind:
+     * letras, números, guiones, dos puntos, slash, corchetes, porcentaje y espacios.
+     */
+    function ele_sanitize_tw_classes($value) {
+        $value = wp_strip_all_tags((string)$value);
+        return preg_replace('/[^a-zA-Z0-9\-\:\/\[\]\%\s]/', '', $value);
+    }
+}
+
+
 // Shortcode [gcal_button] para usar DESDE la plantilla (no editor)
 add_shortcode('gcal_button', function ($atts) {
     $atts = shortcode_atts([
@@ -55,6 +67,17 @@ add_shortcode('gcal_button', function ($atts) {
         'text'  => 'text-white',      // clase Tailwind de texto
         'font'  => 'font-serif font-regular' // clases Tailwind de tipografía
     ], $atts, 'gcal_button');
+
+    // Sanitizar clases Tailwind y color
+    $atts['bg']   = ele_sanitize_tw_classes($atts['bg']);
+    $atts['text'] = ele_sanitize_tw_classes($atts['text']);
+    $atts['font'] = ele_sanitize_tw_classes($atts['font']);
+
+// Color del modal: usa el helper nativo de WP y haz fallback a #000
+    $atts['color'] = sanitize_hex_color($atts['color']);
+    if (!$atts['color']) {
+        $atts['color'] = '#000';
+    }
 
     $id = 'gcal-mount-' . wp_generate_uuid4();
 

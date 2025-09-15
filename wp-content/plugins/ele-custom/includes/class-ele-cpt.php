@@ -167,7 +167,7 @@ class ELE_CPT {
      */
     public static function get_allowed_options() {
         return [
-            'interes' => ['branding','ilustracion','rebranding','packaging-editorial'],
+            'interes' => ['ilustracion','branding','packaging','editorial'],
             'presupuesto' => ['>500','500-1000','1000-2000','<2000'],
         ];
     }

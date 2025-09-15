@@ -35,6 +35,10 @@
     --text-23:23px;
     --text-24:24px;
     --text-27:27px;
+    --text-64:64px;
+    --text-42:42px;
+    --text-36:36px;
+
 
     /* Spacers */
 
@@ -43,8 +47,9 @@
     --spacing-logo-w: 30px;
     --spacing-logo-h: 37px;
     --spacing-big:120px;
+    --spacing-paddingd:132px;
 
-        /* Tamaños de elementos*/
+    /* Tamaños de elementos*/
 
 
 
@@ -58,4 +63,14 @@
 }
 @utility h-screen-safe {
     height: 100svh;
+}
+.calavera{
+    width: 213px;
+    height: 213px;
+    background: url("../images/sprites_43frames_sm-fs8.png") no-repeat;
+    animation: calavera 3s steps(43) infinite;
+}
+@keyframes calavera{
+    from{background-position:0 0}
+    to{ background-position: -9209px 0;}
 }

@@ -8,89 +8,92 @@ get_header(); ?>
 
 
     <!-- HERO -->
-    <section id="hero" class="mx-auto max-w-md px-paddingm2 py-paddingm2 flex-col gap-5">
-        <div><p class="text-21 font-serif font-bold italic text-center">No es magia</p>
-            <h1 class="text-23 font-sans font-light leading-tight text-center  mb-paddingm">
+    <section id="hero" class="mx-auto px-paddingm2  lg:px-paddingd py-paddingm2 lg:py-paddingd flex-col gap-5">
+        <div><p class="text-21 lg:text-42 font-serif font-bold italic text-center">No es magia</p>
+            <h1 class="text-23 lg:text-64 font-sans font-light leading-tight text-center  mb-paddingm">
                 Es branding bien hecho<br>(pero se siente mágico).
             </h1>
         </div>
 
         <div class="grid gap-5 mb-big">
             <div class="justify-self-start">
-                <iframe width="320" height="180"
+                <iframe
+                        class="w-[320px] h-[180px] lg:w-[861px] lg:h-[484px]"
                         src="https://www.youtube.com/embed/qwRrP24jFm4"
                         title="YouTube video player"
                         frameborder="0"
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                         allowfullscreen>
                 </iframe>
-                <h2 class="font-serif font-bold italic text-21">Branding</h2>
+                <h2 class="font-serif font-bold italic text-21 lg:text-42">Branding</h2>
         </div>
         <div class="justify-self-end">
-            <iframe width="320" height="180"
+            <iframe class="w-[320px] h-[180px] lg:w-[861px] lg:h-[484px]"
                     src="https://www.youtube.com/embed/DQuKJFvU-d0"
                     title="YouTube video player"
                     frameborder="0"
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                     allowfullscreen>
             </iframe>
-            <h2 class="font-serif font-bold italic text-21">Rebranding</h2>
+            <h2 class="font-serif font-bold italic text-21 lg:text-42">Rebranding</h2>
         </div>
         <div class="justify-self-start">
-            <iframe width="320" height="180"
+            <iframe class="w-[320px] h-[180px] lg:w-[861px] lg:h-[484px]"
                     src="https://www.youtube.com/embed/jmeAGwpsbQw"
                     title="YouTube video player"
                     frameborder="0"
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                     allowfullscreen>
             </iframe>
-            <h2 class="font-serif font-bold italic text-21">Ilustración</h2>
+            <h2 class="font-serif font-bold italic text-21 lg:text-42">Ilustración</h2>
         </div>
         </div>
 
         <!-- Badge de cupos + CTA -->
         <div class="relative mb-big">
-            <p class="font-serif font-bold text-27 text-center leading-tight">
-                Últimos 3 cupos <br> para proyectos de branding este mes.
+            <p class="font-serif font-bold text-27 lg:text-64 text-center leading-tight">
+                Últimos 3 cupos <br> para proyectos de <br> branding este mes.
             </p>
-            <img src="<?php echo get_template_directory_uri() ?>/assets/images/circulogesto.svg" alt="" class="absolute top-0 left-[50%] -translate-x-1/2 ">
+            <img src="<?php echo get_template_directory_uri() ?>/assets/images/circulogesto.svg" alt="" class="absolute top-0 left-[50%] -translate-x-1/2 lg:w-[511px] ">
             <?php echo do_shortcode('[gcal_button label="Haz una cita"]'); ?>
 
         </div>
     </section>
 
     <!-- CTA intermedio -->
-    <section class="mx-auto max-w-md px-4 py-8">
-             <p class="font-serif font-bold italic text-21">De genérica, nada.
+    <section class="mx-auto px-4 py-8 lg:px-paddingd">
+             <p class="font-serif font-bold italic text-21 lg:text-36">De genérica, nada.
              </p>
-        <p class="font-sans font-light text-21">
+        <p class="font-sans font-light text-21 lg:text-42">
                  Hagamos que tu marca brille.</p>
     </section>
 
 
     <!-- FORMULARIO -->
-    <section id="form" class="mx-auto max-w-md px-4 py-10">
+    <section id="form" class="mx-auto px-4 py-10 lg:px-paddingd">
 
-        <form id="ele-contact-form" method="post" class="grid gap-6">
+        <form id="ele-contact-form" method="post" class="grid gap-6 lg:max-w-[50%]">
+            <input type="hidden" name="started_at" value="<?php echo esc_attr(time()); ?>">
+
             <?php wp_nonce_field('ele_contact_form', 'ele_contact_nonce'); ?>
             <fieldset class="grid gap-2">
                 <legend class="font-sans font-medium mb-paddingm2">¿En que estás interesado?</legend>
                 <div class="flex flex-wrap gap-4">
                     <!-- Chip -->
                     <label class="relative">
-                        <input type="radio" name="interes" value="branding" class="peer sr-only" required>
+                        <input type="radio" name="interes" value="ilustracion" class="peer sr-only" required>
                         <span class="inline-block rounded-xl ring-1 ring-gray-300 px-3 py-2 peer-checked:bg-black peer-checked:text-white">Ilustración</span>
                     </label>
                     <label class="relative">
-                        <input type="radio" name="interes" value="ilustracion" class="peer sr-only" required>
+                        <input type="radio" name="interes" value="branding" class="peer sr-only" required>
                         <span class="inline-block rounded-xl ring-1 ring-gray-300 px-3 py-2 peer-checked:bg-black peer-checked:text-white">Branding</span>
                     </label>
                     <label class="relative">
-                        <input type="radio" name="interes" value="rebranding" class="peer sr-only" required>
+                        <input type="radio" name="interes" value="packaging" class="peer sr-only" required>
                         <span class="inline-block rounded-xl ring-1 ring-gray-300 px-3 py-2 peer-checked:bg-black peer-checked:text-white">Packaging</span>
                     </label>
                     <label class="relative col-span-2">
-                        <input type="radio" name="interes" value="packaging-editorial" class="peer sr-only" required>
+                        <input type="radio" name="interes" value="editorial" class="peer sr-only" required>
                         <span class="inline-block rounded-xl ring-1 ring-gray-300 px-3 py-2 peer-checked:bg-black peer-checked:text-white">Diseño editorial</span>
                     </label>
                 </div>
@@ -215,21 +218,7 @@ get_header(); ?>
 
 
 
-    <!-- FOOTER -->
-    <footer class="mt-10 border-t">
-        <div class="mx-auto max-w-md px-4 py-8 grid gap-3 text-sm">
-            <nav class="flex items-center justify-center gap-6">
-                <a href="#hero" class="hover:underline">Home</a>
-                <a href="#casos" class="hover:underline">Work</a>
-                <a href="#form" class="hover:underline">Contact</a>
-            </nav>
-            <div class="flex items-center justify-center gap-6">
-                <a href="#" class="hover:underline">Instagram</a>
-                <a href="#" class="hover:underline">LinkedIn</a>
-            </div>
-            <p class="text-center text-gray-500">© Copyright ELE 2025</p>
-        </div>
-    </footer>
+
 </main>
 <!-- Modal: Agendar diagnóstico -->
 <div

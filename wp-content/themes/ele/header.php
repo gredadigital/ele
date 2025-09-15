@@ -7,16 +7,16 @@
 </head>
 <body <?php body_class(); ?>>
 <?php wp_body_open(); ?>
-<header class="top-0 bg-white max-w-md mx-auto flex justify-between px-paddingm py-paddingm2">
+<header class="top-0 bg-white  mx-auto flex justify-between px-paddingm py-paddingm2 lg:px-paddingd">
     <h1 class="w-logo-w h-logo-h bg-[url(../images/logo_l.svg)] indent-[-9999px]">
         <a href="">
             <?php bloginfo('name'); ?>
         </a>
     </h1>
     <button class="md:hidden">Menu</button>
-    <nav class="hidden md:block">
+    <nav class="hidden">
 
-        <ul>
+        <ul class="flex gap-2">
             <li><a href="">Work</a></li>
             <li><a href="">Studio</a></li>
             <li><a href="">Contact</a></li>

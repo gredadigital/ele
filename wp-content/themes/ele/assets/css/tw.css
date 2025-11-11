@@ -31,12 +31,13 @@
 
     --text-14:14px;
     --text-17:18px;
-    --text-21: 21px;
+    --text-21:21px;
     --text-23:23px;
     --text-24:24px;
     --text-27:27px;
     --text-64:64px;
     --text-42:42px;
+    --text-32:32px;
     --text-36:36px;
 
 
@@ -48,6 +49,7 @@
     --spacing-logo-h: 37px;
     --spacing-big:120px;
     --spacing-paddingd:132px;
+    --spacing-morep:60px;
 
     /* Tamaños de elementos*/
 
@@ -65,12 +67,75 @@
     height: 100svh;
 }
 .calavera{
-    width: 213px;
-    height: 213px;
-    background: url("../images/sprites_43frames_sm-fs8.png") no-repeat;
-    animation: calavera 3s steps(43) infinite;
+    width: 353px;
+    height: 353px;
+    background: url("../images/craneo_sprite12t.png") no-repeat;
+    animation: calavera 1s steps(12) infinite;
 }
 @keyframes calavera{
     from{background-position:0 0}
-    to{ background-position: -9209px 0;}
+    to{ background-position: -4241px 0;}
+}
+@keyframes calaveramd{
+    from{background-position:0 0}
+    to{ background-position: -2403px 0;}
+}
+@media screen and (max-width:820px){
+    .calavera{
+        width: 200px;
+        height: 200px;
+        background-size:auto 200px;
+        animation: calaveramd 1s steps(12) infinite;
+    }
+}
+
+/* Estado base de los spans */
+.hero_txt span {
+    display: inline-block;          /* necesario para mover en Y sin afectar línea */
+    opacity: 0;
+    transform: translateY(14px);
+    /* La animación se define pero se iniciará cuando .hero_txt tenga .animate */
+    animation: none;
+}
+
+/* Cuando .hero_txt ya tiene la clase .animate al cargar */
+.hero_txt.animate span {
+    animation: fadeUp .6s ease forwards;
+    /* El delay lo controlamos con una variable por span */
+    animation-delay: calc(var(--i, 0) * 0.28s);
+}
+
+/* Asignamos el índice de cada span según su orden visual (de arriba a abajo) */
+.hero_txt.animate p span {                /* "No es magia" */
+    --i: 0;
+}
+
+.hero_txt.animate h1 span:nth-of-type(1) { /* "Es branding bien hecho" */
+    --i: 1;
+}
+
+.hero_txt.animate h1 span:nth-of-type(2) { /* "(pero se siente mágico)." */
+    --i: 2;
+}
+
+/* Definición de la animación */
+@keyframes fadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(14px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Accesibilidad: respeta usuarios que prefieren menos movimiento */
+@media (prefers-reduced-motion: reduce) {
+    .hero_txt span,
+    .hero_txt.animate span {
+        animation: none !important;
+        opacity: 1;
+        transform: none;
+    }
 }

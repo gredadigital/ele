@@ -16,7 +16,7 @@
  * Plugin Name:       Disable CSS JS Cache
  * Plugin URI:        https://phptutorialpoints.in
  * Description:       This plugin helps prevent browser caching of CSS and JS files from theme in WordPress.
- * Version:           1.0.5
+ * Version:           1.0.8
  * Author:            Umang Prajapati
  * License:           GPL-2.0+
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
@@ -24,28 +24,36 @@
  * Domain Path:       /languages
  */
 
- defined( 'ABSPATH' ) or die( 'Hey, what are you doing here? You silly human!' );
-
-
-// If this file is called directly, abort.
-if ( ! defined( 'WPINC' ) ) {
-	die;
+if ( ! defined( 'ABSPATH' ) ) {
+    exit; // Exit if accessed directly
 }
+
+
 
 /**
  * Currently plugin version.
  * Start at version 1.0.0 and use SemVer - https://semver.org
  * Rename this for your plugin and update it as you release new versions.
  */
-define( 'DISABLE_CSS_JS_CACHE_VERSION', '1.0.3' );
+define( 'DISABLE_CSS_JS_CACHE_VERSION', '1.0.8' );
 
 /**
  * The code that runs during plugin activation.
  * This action is documented in includes/class-disable-css-js-cache-activator.php
  */
 function activate_disable_css_js_cache() {
-	require_once plugin_dir_path( __FILE__ ) . 'includes/class-disable-css-js-cache-activator.php';
-	Disable_Css_Js_Cache_Activator::activate();
+    $activator_file = plugin_dir_path( __FILE__ ) . 'includes/class-disable-css-js-cache-activator.php';
+    if ( file_exists( $activator_file ) ) {
+        $real_activator_path = realpath( $activator_file );
+        $plugin_dir = realpath( plugin_dir_path( __FILE__ ) );
+        
+        if ( $real_activator_path && $plugin_dir && strpos( $real_activator_path, $plugin_dir ) === 0 ) {
+            require_once $activator_file;
+            if ( class_exists( 'Disable_Css_Js_Cache_Activator' ) ) {
+                Disable_Css_Js_Cache_Activator::activate();
+            }
+        }
+    }
 }
 
 /**
@@ -53,8 +61,18 @@ function activate_disable_css_js_cache() {
  * This action is documented in includes/class-disable-css-js-cache-deactivator.php
  */
 function deactivate_disable_css_js_cache() {
-	require_once plugin_dir_path( __FILE__ ) . 'includes/class-disable-css-js-cache-deactivator.php';
-	Disable_Css_Js_Cache_Deactivator::deactivate();
+    $deactivator_file = plugin_dir_path( __FILE__ ) . 'includes/class-disable-css-js-cache-deactivator.php';
+    if ( file_exists( $deactivator_file ) ) {
+        $real_deactivator_path = realpath( $deactivator_file );
+        $plugin_dir = realpath( plugin_dir_path( __FILE__ ) );
+        
+        if ( $real_deactivator_path && $plugin_dir && strpos( $real_deactivator_path, $plugin_dir ) === 0 ) {
+            require_once $deactivator_file;
+            if ( class_exists( 'Disable_Css_Js_Cache_Deactivator' ) ) {
+                Disable_Css_Js_Cache_Deactivator::deactivate();
+            }
+        }
+    }
 }
 
 register_activation_hook( __FILE__, 'activate_disable_css_js_cache' );
@@ -64,7 +82,15 @@ register_deactivation_hook( __FILE__, 'deactivate_disable_css_js_cache' );
  * The core plugin class that is used to define internationalization,
  * admin-specific hooks, and public-facing site hooks.
  */
-require plugin_dir_path( __FILE__ ) . 'includes/class-disable-css-js-cache.php';
+$main_class_file = plugin_dir_path( __FILE__ ) . 'includes/class-disable-css-js-cache.php';
+if ( file_exists( $main_class_file ) ) {
+    $real_main_path = realpath( $main_class_file );
+    $plugin_dir = realpath( plugin_dir_path( __FILE__ ) );
+    
+    if ( $real_main_path && $plugin_dir && strpos( $real_main_path, $plugin_dir ) === 0 ) {
+        require $main_class_file;
+    }
+}
 
 /**
  * Begins execution of the plugin.
@@ -76,9 +102,10 @@ require plugin_dir_path( __FILE__ ) . 'includes/class-disable-css-js-cache.php';
  * @since    1.0.0
  */
 function run_disable_css_js_cache() {
-
-	$plugin = new Disable_Css_Js_Cache();
-	$plugin->run();
-
+    if ( class_exists( 'Disable_Css_Js_Cache' ) ) {
+        $plugin = new Disable_Css_Js_Cache();
+        $plugin->run();
+    }
 }
 run_disable_css_js_cache();
+

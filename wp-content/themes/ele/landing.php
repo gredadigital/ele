@@ -3,22 +3,22 @@
 
 get_header(); ?>
 
-<main id="ele-landing" class="bg-white text-gray-900">
+<main id="ele-landing" class="bg-white text-gray-900 relative z-40 lg:mb-[900px]  md:mb-[600px] mb-[600px] rounded-b-3xl">
 
 
 
     <!-- HERO -->
-    <section id="hero" class="mx-auto px-paddingm2  lg:px-paddingd py-paddingm2 lg:py-paddingd flex-col gap-5">
-        <div><p class="text-21 lg:text-42 font-serif font-bold italic text-center">No es magia</p>
-            <h1 class="text-23 lg:text-64 font-sans font-light leading-tight text-center  mb-paddingm">
-                Es branding bien hecho<br>(pero se siente mágico).
+    <section id="hero" class="mx-auto px-paddingm2  lg:px-paddingd py-morep lg:py-paddingd flex-col gap-5">
+        <div class="hero_txt animate"><p class="text-21 lg:text-42 font-serif font-bold italic text-center"><span>No es magia</span></p>
+            <h1 class="text-23 lg:text-64 font-sans font-light leading-tight text-center  mb-morep">
+                <span>Es branding bien hecho</span><br><span>(pero se siente mágico).</span>
             </h1>
         </div>
 
         <div class="grid gap-5 mb-big">
             <div class="justify-self-start">
                 <iframe
-                        class="w-[320px] h-[180px] lg:w-[861px] lg:h-[484px]"
+                        class="w-[320px] h-[180px] lg:w-[861px] lg:h-[484px] md:w-[523px] md:h-[294px]"
                         src="https://www.youtube.com/embed/qwRrP24jFm4"
                         title="YouTube video player"
                         frameborder="0"
@@ -28,7 +28,7 @@ get_header(); ?>
                 <h2 class="font-serif font-bold italic text-21 lg:text-42">Branding</h2>
         </div>
         <div class="justify-self-end">
-            <iframe class="w-[320px] h-[180px] lg:w-[861px] lg:h-[484px]"
+            <iframe class="w-[320px] h-[180px] lg:w-[861px] lg:h-[484px] md:w-[523px] md:h-[294px]"
                     src="https://www.youtube.com/embed/DQuKJFvU-d0"
                     title="YouTube video player"
                     frameborder="0"
@@ -38,7 +38,7 @@ get_header(); ?>
             <h2 class="font-serif font-bold italic text-21 lg:text-42">Rebranding</h2>
         </div>
         <div class="justify-self-start">
-            <iframe class="w-[320px] h-[180px] lg:w-[861px] lg:h-[484px]"
+            <iframe class="w-[320px] h-[180px] lg:w-[861px] lg:h-[484px] md:w-[523px] md:h-[294px]"
                     src="https://www.youtube.com/embed/jmeAGwpsbQw"
                     title="YouTube video player"
                     frameborder="0"
@@ -61,7 +61,7 @@ get_header(); ?>
     </section>
 
     <!-- CTA intermedio -->
-    <section class="mx-auto px-4 py-8 lg:px-paddingd">
+    <section class="mx-auto px-4 py-8 lg:px-paddingd md:px-big">
              <p class="font-serif font-bold italic text-21 lg:text-36">De genérica, nada.
              </p>
         <p class="font-sans font-light text-21 lg:text-42">
@@ -70,7 +70,7 @@ get_header(); ?>
 
 
     <!-- FORMULARIO -->
-    <section id="form" class="mx-auto px-4 py-10 lg:px-paddingd">
+    <section id="form" class="mx-auto px-4 py-10 lg:px-paddingd md:px-big">
 
         <form id="ele-contact-form" method="post" class="grid gap-6 lg:max-w-[50%]">
             <input type="hidden" name="started_at" value="<?php echo esc_attr(time()); ?>">
@@ -215,6 +215,9 @@ get_header(); ?>
         <p class="text-center font-sans font-light text-27 tracking-tight">¿Listo para transformar tu negocio</p>
         <p class="text-center font-serif font-bold text-27 italic">con diseño?</p>
     </section>
+    <div class="flex justify-center">
+        <img src="<?php echo get_template_directory_uri() ?>/assets/images/mano.png" class="w-[200px] md:w-[300px] lg:w-[483px]" alt="">
+    </div>
 
 
 
@@ -239,7 +242,7 @@ get_header(); ?>
 
     <!-- Contenido -->
     <div
-            class="relative mx-auto mt-24 w-[90%] rounded-2xl bg-black bg-[url(../images/brujula.png)] bg-no-repeat bg-[right_20px_center] bg-position-x p-6 shadow-2xl"
+            class="relative mx-auto mt-24 w-[90%] lg:w-[400px] rounded-2xl bg-black bg-[url(../images/brujula.png)] bg-no-repeat bg-[right_20px_center] bg-position-x p-6 shadow-2xl"
             tabindex="-1"
     >
         <!-- Cerrar -->

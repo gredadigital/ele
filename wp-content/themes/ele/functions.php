@@ -65,7 +65,7 @@ add_shortcode('gcal_button', function ($atts) {
         'color' => '#000',            // color para el modal de Google
         'bg'    => 'bg-black',        // clase Tailwind de fondo
         'text'  => 'text-white',      // clase Tailwind de texto
-        'font'  => 'font-serif font-regular' // clases Tailwind de tipografía
+        'font'  => 'font-sans font-regular' // clases Tailwind de tipografía
     ], $atts, 'gcal_button');
 
     // Sanitizar clases Tailwind y color
@@ -105,4 +105,21 @@ add_shortcode('gcal_button', function ($atts) {
         esc_attr($atts['color'])
     );
 });
+// Registrar ubicaciones de menú
+add_action('after_setup_theme', function () {
+    register_nav_menus([
+        'primary' => __('Menú principal', 'ele'),
+        'footer'  => __('Menú de pie', 'ele'),
+    ]);
+});
+
+// Añadir clases a los enlaces del menú (sin walker), sólo para 'primary'
+add_filter('nav_menu_link_attributes', function ($atts, $item, $args) {
+    if (isset($args->theme_location) && $args->theme_location === 'primary') {
+        $link_classes = 'px-3 py-2 rounded-full transition hover:opacity-80 focus:outline-none';
+        $atts['class'] = isset($atts['class']) ? $atts['class'] . ' ' . $link_classes : $link_classes;
+    }
+    return $atts;
+}, 10, 3);
+
 

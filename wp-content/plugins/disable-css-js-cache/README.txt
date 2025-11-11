@@ -2,9 +2,9 @@
 Contributors: umangapps48
 Donate link: https://phptutorialpoints.in
 Tags: disable cache, clear cache, disable css js cache,  remove cache
-Requires at least: 5.0
+Requires at least: 7.4
 Requires php: 7.2
-Tested up to: 6.6.2
+Tested up to: 6.8.2
 Stable tag: 1.0.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -45,6 +45,16 @@ Say goodbye to cached CSS and JavaScript files that slow down your website's pro
 1. screenshot-1.png
 
 == Changelog ==
+
+= 1.0.8 =
+* fixed deactivate link not showing when plugin activated
+* Added support for wordpress 6.8.2
+
+= 1.0.7 =
+* fixed frequent updating .htaccess file issue on page load
+
+= 1.0.6 =
+* Added support for wordpress 6.7.2
 
 = 1.0.5 =
 * Added support for wordpress 6.6.2

@@ -7,14 +7,14 @@
 </head>
 <body class="bg-black">
 <?php wp_body_open(); ?>
-<header class="top-0 bg-white  mx-auto flex justify-between px-paddingm py-paddingm2 lg:px-paddingd">
+<header class="top-0 bg-white  mx-auto flex justify-between px-paddingm pb-paddingm2 pt-[60px] lg:px-paddingd absolute top-0 left-0 w-full z-[9999]">
     <h1 class="w-logo-w h-logo-h bg-[url(../images/logo_l.svg)] indent-[-9999px]">
         <a href="">
             <?php bloginfo('name'); ?>
         </a>
     </h1>
-    <button class="hidden">Menu</button>
-    <nav class="site-nav" aria-label="Navegación principal" role="navigation">
+    <button class="block lg:hidden">Menu</button>
+    <nav class="site-nav hidden lg:block" aria-label="Navegación principal" role="navigation">
         <?php
         wp_nav_menu([
                 'theme_location' => 'primary',

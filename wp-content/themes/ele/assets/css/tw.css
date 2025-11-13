@@ -13,8 +13,10 @@
     --color-btn: #404040;
     --color-pastel: #D1DCE5;
     --color-dark:#23242A;
+    --color-black:#000;
     --color-light:#ffffff;
     --color-azulgris: #98B6CB;
+    --color-otrogris: #f4f4f4;
 
     /* Tipografías */
     --font-sans: "Noto Sans", system-ui, sans-serif;
@@ -30,8 +32,10 @@
     /* Tamaño */
 
     --text-14:14px;
+    --text-16:16px;
     --text-17:18px;
     --text-21:21px;
+    --text-22:22px;
     --text-23:23px;
     --text-24:24px;
     --text-27:27px;
@@ -51,6 +55,12 @@
     --spacing-paddingd:132px;
     --spacing-morep:60px;
 
+    --spacing-16:16px;
+    --spacing-28:28px;
+    --spacing-38:38px;
+    --spacing-63:63px;
+    --spacing-83:83px;
+    --spacing-186:186px;
     /* Tamaños de elementos*/
 
 
@@ -139,3 +149,85 @@
         transform: none;
     }
 }
+@layer utilities {
+    /* Contenedor de cada fila/carril */
+    .gal-wrapper {
+        @apply w-[100%] max-w-[1536px] mx-auto overflow-hidden;
+        --gal-item-height: 140px;
+        height: var(--gal-item-height);
+    }
+
+    /* Track que se desplaza (cinta) */
+    .gal-track {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px; /
+        height: 100%;
+        width: max-content;
+    }
+
+    .gal-item {
+        flex: 0 0 auto;
+        width: 260px;
+        height: 100%;
+        overflow: hidden;
+    }
+
+    .gal-item img {
+        @apply w-full h-full object-cover;
+    }
+
+    /* Fila 1: derecha → izquierda */
+    .gal-track-left {
+        animation: gal-marquee-left 20s linear infinite;
+    }
+
+    /* Fila 2: izquierda → derecha */
+    .gal-track-right {
+        animation: gal-marquee-right 20s linear infinite;
+    }
+
+    /* Animaciones tipo cinta continua:
+       duplicamos contenido → movemos -50% → vuelve al inicio sin salto
+    */
+    @keyframes gal-marquee-left {
+        from {
+            transform: translateX(0%);
+        }
+        to {
+            transform: translateX(-50%);
+        }
+    }
+
+    @keyframes gal-marquee-right {
+        from {
+            transform: translateX(-50%);
+        }
+        to {
+            transform: translateX(0%);
+        }
+    }
+
+    /* Responsivo:
+       - en pantallas chicas, ítems más pequeños
+       - en grandes, más grandes
+    */
+    @media (max-width: 767px) {
+        .gal-wrapper {
+            --gal-item-height: 110px;
+        }
+        .gal-item {
+            width: 200px;
+        }
+    }
+
+    @media (min-width: 1280px) {
+        .gal-wrapper {
+            --gal-item-height: 160px;
+        }
+        .gal-item {
+            width: 320px;
+        }
+    }
+}
+

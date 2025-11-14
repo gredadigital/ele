@@ -14,9 +14,11 @@
     --color-pastel: #D1DCE5;
     --color-dark:#23242A;
     --color-black:#000;
-    --color-light:#ffffff;
+    --color-light:#fff;
     --color-azulgris: #98B6CB;
     --color-otrogris: #f4f4f4;
+    --color-lightgrey: #c1c1c1;
+    --color-orange: #FF7927;
 
     /* Tipografías */
     --font-sans: "Noto Sans", system-ui, sans-serif;
@@ -229,5 +231,58 @@
             width: 320px;
         }
     }
+
+    /* Overlay: aparece/desaparece con opacidad */
+    @keyframes overlay-fade-in {
+        0% { opacity: 0; }
+        100% { opacity: 1; }
+    }
+
+    @keyframes overlay-fade-out {
+        0% { opacity: 1; }
+        100% { opacity: 0; }
+    }
+
+    .overlay-fade-in {
+        animation: overlay-fade-in 0.35s ease-out forwards;
+    }
+    .overlay-fade-out {
+        animation: overlay-fade-out 0.45s ease-in forwards;
+    }
+
+    /* PANEL: entra desde la derecha y sale hacia la derecha */
+    @keyframes panel-slide-in-right {
+        0% {
+            transform: translateX(100%);
+        }
+        100% {
+            transform: translateX(0);
+        }
+    }
+
+    @keyframes panel-slide-out-right {
+        0% {
+            transform: translateX(0);
+        }
+        100% {
+            transform: translateX(100%);
+        }
+    }
+
+    .panel-slide-in-right {
+        animation: panel-slide-in-right 0.45s cubic-bezier(.22,.61,.36,1) forwards;
+        /* movimiento natural: entrada rápida → desaceleración */
+    }
+
+    .panel-slide-out-right {
+        animation: panel-slide-out-right 0.65s ease-out forwards;
+        /* salida más lenta y suave hacia la derecha */
+    }
+
+
+
 }
 
+.menu_mobile nav .flex.flex-col li a{
+    @apply p-0 block;
+}

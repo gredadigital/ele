@@ -1,7 +1,7 @@
 <?php
 /* Template name: Contact*/
 
-get_header(); ?>
+get_header('negativo'); ?>
 
 <main id="ele-landing" class="bg-white text-gray-900 relative z-40 lg:mb-[900px]  md:mb-[600px] mb-[600px] rounded-b-3xl">
 
@@ -166,13 +166,60 @@ get_header(); ?>
 
         </form>
     </section>
-    <section class="px-paddingm2 py-big">
-        <p class="text-center font-sans font-light text-27 tracking-tight">¿Listo para transformar tu negocio</p>
-        <p class="text-center font-serif font-bold text-27 italic">con diseño?</p>
+    <section class="acordion p-[15px]">
+        <h3 class="font-sans font-light text-[22px]">Estas tienden a aparecer</h3>
+        <div class="item">
+            <div class="consulta flex justify-between border-lightgrey border-b py-[16px]">
+                <p class="font-serif font-bold italic text-[18px]">¿Con quién trabajan?</p>
+                <span class="inline-block w-[20px] h-[20px] bg-[url('../images/chevrondown.svg')]"></span>
+            </div>
+            <div class="respuesta py-[16px]">
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Assumenda, beatae consequatur fuga ipsum
+                    repudiandae sit. Laudantium numquam quos reiciendis sapiente totam! At commodi consequuntur,
+                    eligendi excepturi facilis fugiat laudantium, molestias nihil nisi quasi quis quod ratione, saepe
+                    sint tenetur? Rerum?</p>
+            </div>
+        </div>
+        <div class="item">
+            <div class="consulta flex justify-between border-lightgrey border-b py-[16px]">
+                <p class="font-serif font-bold italic text-[18px]">¿Cuánto suele costar un proyecto?</p>
+                <span class="inline-block w-[20px] h-[20px] bg-[url('../images/chevrondown.svg')]"></span>
+            </div>
+            <div class="respuesta py-[16px] hidden">
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Assumenda, beatae consequatur fuga ipsum
+                    repudiandae sit. Laudantium numquam quos reiciendis sapiente totam! At commodi consequuntur,
+                    eligendi excepturi facilis fugiat laudantium, molestias nihil nisi quasi quis quod ratione, saepe
+                    sint tenetur? Rerum?</p>
+            </div>
+        </div>
+        <div class="item">
+            <div class="consulta flex justify-between border-lightgrey border-b py-[16px]">
+                <p class="font-serif font-bold italic text-[18px]">¿Necesito un briefing?</p>
+                <span class="inline-block w-[20px] h-[20px] bg-[url('../images/chevrondown.svg')]"></span>
+            </div>
+            <div class="respuesta py-[16px] hidden">
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Assumenda, beatae consequatur fuga ipsum
+                    repudiandae sit. Laudantium numquam quos reiciendis sapiente totam! At commodi consequuntur,
+                    eligendi excepturi facilis fugiat laudantium, molestias nihil nisi quasi quis quod ratione, saepe
+                    sint tenetur? Rerum?</p>
+            </div>
+        </div>
+        <div class="item">
+            <div class="consulta flex justify-between border-lightgrey border-b py-[16px]">
+                <p class="font-serif font-bold italic text-[18px]">¿Hacen trabajo pro bono?</p>
+                <span class="inline-block w-[20px] h-[20px] bg-[url('../images/chevrondown.svg')]"></span>
+            </div>
+            <div class="respuesta py-[16px] hidden">
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Assumenda, beatae consequatur fuga ipsum
+                    repudiandae sit. Laudantium numquam quos reiciendis sapiente totam! At commodi consequuntur,
+                    eligendi excepturi facilis fugiat laudantium, molestias nihil nisi quasi quis quod ratione, saepe
+                    sint tenetur? Rerum?</p>
+            </div>
+        </div>
+
+
     </section>
-    <div class="flex justify-center">
-        <img src="<?php echo get_template_directory_uri() ?>/assets/images/mano.png" class="w-[200px] md:w-[300px] lg:w-[483px]" alt="">
-    </div>
+
 
 
 

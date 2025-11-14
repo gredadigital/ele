@@ -3,7 +3,7 @@
 get_header();
 ?>
 <div class="card bg-primario text-gray-900 relative z-40 lg:mb-[900px]  md:mb-[600px] mb-[600px] pb-[100px] rounded-b-3xl">
-    <div class="card bg-light text-gray-900 relative z-40 lg:mb-[900px]  md:mb-[600px]  rounded-b-3xl flex flex-col gap-38 pt-[60px]">
+    <div class="card bg-light text-gray-900 relative z-40 lg:mb-[900px]  md:mb-[600px]  rounded-b-3xl flex flex-col gap-38 pt-[100px]">
         <section class="hero py-28"><h2 class="text-32/9 text-center font-sans">
                 <span>Bienvenido</span>
                 <span>al mundo donde</span>

@@ -44,6 +44,13 @@ add_action('wp_enqueue_scripts', function () {
             true
         );
     }
+    wp_enqueue_script(
+        'ele-menu-mobile',
+        get_template_directory_uri() . '/assets/js/menu-mobile.js',
+        array(), // dependencias (por ahora vacío)
+        null,
+        true // en footer
+    );
 });
 if (!function_exists('ele_sanitize_tw_classes')) {
     /**

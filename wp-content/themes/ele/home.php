@@ -1,7 +1,16 @@
 <?php
 /*Template Name: Home*/
 get_header();
-?>
+
+if (have_posts()) : while (have_posts()) : the_post(); ?>
+
+    <?php
+    $trabajos = carbon_get_the_post_meta('ele_home_trabajos_seleccionados');
+    $galeria = carbon_get_the_post_meta('ele_home_galeria');
+
+    ?>
+
+
 <div class="card bg-primario text-gray-900 relative z-40 lg:mb-[900px]  md:mb-[600px] mb-[600px] pb-[100px] rounded-b-3xl">
     <div class="card bg-light text-gray-900 relative z-40 lg:mb-[900px]  md:mb-[600px]  rounded-b-3xl flex flex-col gap-38 pt-[100px]">
         <section class="hero py-28"><h2 class="text-32/9 text-center font-sans">
@@ -14,38 +23,70 @@ get_header();
             <h3 class="text-center font-serif italic font-bold text-16">Trabajos seleccionados</h3>
             <p class="text-center font-sans text-22/7 font-light">Marcas que conectan con las personas a través de historias inolvidables</p>
         </section>
-        <section class="trabajos_seleccionados px-[30px] py-[9px] flex flex-col gap-[34px]">
-            <div class="seleccionado flex flex-col gap-[7px]">
+        <?php if (!empty($trabajos)) : ?>
+            <section class="trabajos_seleccionados px-[30px] py-[9px] flex flex-col gap-[34px]">
+                <?php foreach ($trabajos as $trabajo) :
 
-                    <a href="">
-                        <img class="object-cover" src="<?php echo get_template_directory_uri(); ?>/assets/images/placeholder.png" alt="">
-                    </a>
+                    // Imagen
+                    $imagen_id  = $trabajo['imagen'] ?? null;
+                    $imagen_url = $imagen_id
+                            ? wp_get_attachment_image_url($imagen_id, 'large')
+                            : get_template_directory_uri() . '/assets/images/placeholder.png';
 
-                <div class="txt"><h3 class="font-serif font-bold italic text-[18px]">Jacinto</h3>
-                    <p CLASS="font-sans font-light text-[16px]/5">Una marca que captura lo cotidiano y se
-                        transforma en extraordinario, sin perder calidez.</p></div>
-            </div>
-            <div class="seleccionado flex flex-col gap-[7px]">
+                    // Asociación al proyecto (association)
+                    $proyecto_id = null;
+                    if (!empty($trabajo['proyecto']) && is_array($trabajo['proyecto'])) {
+                        $assoc = $trabajo['proyecto'][0] ?? null;
+                        if (!empty($assoc['id'])) {
+                            $proyecto_id = (int) $assoc['id'];
+                        }
+                    }
 
-                    <a href="">
-                        <img class="object-cover" src="<?php echo get_template_directory_uri(); ?>/assets/images/placeholder.png" alt="">
-                    </a>
+                    $proyecto_url   = $proyecto_id ? get_permalink($proyecto_id) : '#';
+                    $proyecto_title = $proyecto_id ? get_the_title($proyecto_id) : '';
 
-                <div class="txt"><h3 class="font-serif font-bold italic text-[18px]">BCP</h3>
-                    <p CLASS="font-sans font-light text-[16px]/5">Hacer de una banca móvil un lugar que recordar, un lugar
-                        con un poco de casa.</p></div>
-            </div>
-            <div class="seleccionado  flex flex-col gap-[7px]">
+                    // Título visible: primero el título del campo, si no, el del proyecto
+                    $titulo = !empty($trabajo['titulo'])
+                            ? $trabajo['titulo']
+                            : $proyecto_title;
 
-                    <a href="">
-                        <img class="object-cover" src="<?php echo get_template_directory_uri(); ?>/assets/images/placeholder.png" alt="">
-                    </a>
+                    // Descripción
+                    $descripcion = $trabajo['descripcion'] ?? '';
 
-                <div class="txt"><h3 class="font-serif font-bold italic text-[18px]">Comanche</h3>
-                    <p CLASS="font-sans font-light text-[16px]/5">Un producto turístico con el que puedes viajar en el
-                        tiempo.</p></div>
-            </div>
-        </section>
+                    // ALT de la imagen: usa el título como fallback
+                    $alt = $titulo ?: $proyecto_title ?: 'Trabajo seleccionado';
+                    ?>
+
+                    <div class="seleccionado flex flex-col gap-[7px]">
+
+                        <a href="<?php echo esc_url($proyecto_url); ?>">
+                            <img
+                                    class="object-cover"
+                                    src="<?php echo esc_url($imagen_url); ?>"
+                                    alt="<?php echo esc_attr($alt); ?>"
+                            >
+                        </a>
+
+                        <div class="txt">
+                            <?php if ($titulo) : ?>
+                                <h3 class="font-serif font-bold italic text-[18px]">
+                                    <?php echo esc_html($titulo); ?>
+                                </h3>
+                            <?php endif; ?>
+
+                            <?php if ($descripcion) : ?>
+                                <p class="font-sans font-light text-[16px]/5">
+                                    <?php echo esc_html($descripcion); ?>
+                                </p>
+                            <?php endif; ?>
+                        </div>
+                    </div>
+
+                <?php endforeach; ?>
+            </section>
+        <?php endif; ?>
+
+
         <section class="negocios px-[80px] py-[69px]">
             <h3 class="font-serif font-bold italic text-center text-[24px]/6">Negocios que ayudamos a crear emociones intensas.</h3>
         </section>
@@ -70,73 +111,83 @@ get_header();
   </span>
             </a>
         </section>
-        <section class="gal py-10 space-y-2">
-            <!-- Fila 1: derecha → izquierda -->
-            <div class="gal-wrapper">
-                <div class="gal-track gal-track-left">
-                    <!-- Bloque 1 -->
-                    <div class="gal-item">
-                        <img src="<?php echo get_template_directory_uri(); ?>/assets/images/gal_horizontal1.png" alt="">
-                    </div>
-                    <div class="gal-item">
-                        <img src="<?php echo get_template_directory_uri(); ?>/assets/images/gal_horizontal2.png" alt="">
-                    </div>
-                    <div class="gal-item">
-                        <img src="<?php echo get_template_directory_uri(); ?>/assets/images/gal_horizontal3.png" alt="">
-                    </div>
-                    <div class="gal-item">
-                        <img src="<?php echo get_template_directory_uri(); ?>/assets/images/gal_horizontal4.png" alt="">
-                    </div>
+        <?php if (!empty($galeria)) : ?>
+            <section class="gal py-10 space-y-2">
+                <!-- Fila 1: derecha → izquierda -->
+                <div class="gal-wrapper">
+                    <div class="gal-track gal-track-left">
+                        <?php
+                        // Bloque 1
+                        foreach ($galeria as $item) :
+                            $imagen_id  = $item['imagen'] ?? null;
+                            $alt_text   = $item['alt'] ?? '';
+                            $imagen_url = $imagen_id
+                                    ? wp_get_attachment_image_url($imagen_id, 'large')
+                                    : get_template_directory_uri() . '/assets/images/placeholder.png';
 
-                    <!-- Bloque 2 (duplicado para cinta continua) -->
-                    <div class="gal-item">
-                        <img src="<?php echo get_template_directory_uri(); ?>/assets/images/gal_horizontal1.png" alt="">
-                    </div>
-                    <div class="gal-item">
-                        <img src="<?php echo get_template_directory_uri(); ?>/assets/images/gal_horizontal2.png" alt="">
-                    </div>
-                    <div class="gal-item">
-                        <img src="<?php echo get_template_directory_uri(); ?>/assets/images/gal_horizontal3.png" alt="">
-                    </div>
-                    <div class="gal-item">
-                        <img src="<?php echo get_template_directory_uri(); ?>/assets/images/gal_horizontal4.png" alt="">
+                            $alt = $alt_text ?: 'Imagen de galería';
+                            ?>
+                            <div class="gal-item">
+                                <img src="<?php echo esc_url($imagen_url); ?>" alt="<?php echo esc_attr($alt); ?>">
+                            </div>
+                        <?php endforeach; ?>
+
+                        <?php
+                        // Bloque 2 (duplicado para cinta continua)
+                        foreach ($galeria as $item) :
+                            $imagen_id  = $item['imagen'] ?? null;
+                            $alt_text   = $item['alt'] ?? '';
+                            $imagen_url = $imagen_id
+                                    ? wp_get_attachment_image_url($imagen_id, 'large')
+                                    : get_template_directory_uri() . '/assets/images/placeholder.png';
+
+                            $alt = $alt_text ?: 'Imagen de galería';
+                            ?>
+                            <div class="gal-item">
+                                <img src="<?php echo esc_url($imagen_url); ?>" alt="<?php echo esc_attr($alt); ?>">
+                            </div>
+                        <?php endforeach; ?>
                     </div>
                 </div>
-            </div>
 
-            <!-- Fila 2: izquierda → derecha -->
-            <div class="gal-wrapper">
-                <div class="gal-track gal-track-right">
-                    <!-- Bloque 1 -->
-                    <div class="gal-item">
-                        <img src="<?php echo get_template_directory_uri(); ?>/assets/images/gal_horizontal1.png" alt="">
-                    </div>
-                    <div class="gal-item">
-                        <img src="<?php echo get_template_directory_uri(); ?>/assets/images/gal_horizontal2.png" alt="">
-                    </div>
-                    <div class="gal-item">
-                        <img src="<?php echo get_template_directory_uri(); ?>/assets/images/gal_horizontal3.png" alt="">
-                    </div>
-                    <div class="gal-item">
-                        <img src="<?php echo get_template_directory_uri(); ?>/assets/images/gal_horizontal4.png" alt="">
-                    </div>
+                <!-- Fila 2: izquierda → derecha -->
+                <div class="gal-wrapper">
+                    <div class="gal-track gal-track-right">
+                        <?php
+                        // Bloque 1
+                        foreach ($galeria as $item) :
+                            $imagen_id  = $item['imagen'] ?? null;
+                            $alt_text   = $item['alt'] ?? '';
+                            $imagen_url = $imagen_id
+                                    ? wp_get_attachment_image_url($imagen_id, 'large')
+                                    : get_template_directory_uri() . '/assets/images/placeholder.png';
 
-                    <!-- Bloque 2 (duplicado para cinta continua) -->
-                    <div class="gal-item">
-                        <img src="<?php echo get_template_directory_uri(); ?>/assets/images/gal_horizontal1.png" alt="">
-                    </div>
-                    <div class="gal-item">
-                        <img src="<?php echo get_template_directory_uri(); ?>/assets/images/gal_horizontal2.png" alt="">
-                    </div>
-                    <div class="gal-item">
-                        <img src="<?php echo get_template_directory_uri(); ?>/assets/images/gal_horizontal3.png" alt="">
-                    </div>
-                    <div class="gal-item">
-                        <img src="<?php echo get_template_directory_uri(); ?>/assets/images/gal_horizontal4.png" alt="">
+                            $alt = $alt_text ?: 'Imagen de galería';
+                            ?>
+                            <div class="gal-item">
+                                <img src="<?php echo esc_url($imagen_url); ?>" alt="<?php echo esc_attr($alt); ?>">
+                            </div>
+                        <?php endforeach; ?>
+
+                        <?php
+                        // Bloque 2 (duplicado para cinta continua)
+                        foreach ($galeria as $item) :
+                            $imagen_id  = $item['imagen'] ?? null;
+                            $alt_text   = $item['alt'] ?? '';
+                            $imagen_url = $imagen_id
+                                    ? wp_get_attachment_image_url($imagen_id, 'large')
+                                    : get_template_directory_uri() . '/assets/images/placeholder.png';
+
+                            $alt = $alt_text ?: 'Imagen de galería';
+                            ?>
+                            <div class="gal-item">
+                                <img src="<?php echo esc_url($imagen_url); ?>" alt="<?php echo esc_attr($alt); ?>">
+                            </div>
+                        <?php endforeach; ?>
                     </div>
                 </div>
-            </div>
-        </section>
+            </section>
+        <?php endif; ?>
 
 
 
@@ -165,4 +216,9 @@ get_header();
     </section>
 </div>
 
-<?php get_footer(); ?>
+<?php
+
+
+endwhile;
+endif;
+get_footer(); ?>

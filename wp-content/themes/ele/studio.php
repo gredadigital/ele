@@ -1,72 +1,260 @@
 <?php
 /*Template Name: Studio*/
-get_header();
+get_header('negativo');
 ?>
-<div class="card yellow">
-    <div class="card white">
-        <section class="hero studio">
-            <img src="" alt="">
-        </section>
-        <section class="especialidades">
-            <ul>
-                <li>
-                    <figure><img src="" alt=""></figure>
-                    <h3>Ilustración</h3>
-                    <p>Un lenguaje que permite decir mucho con poco. La ilustración ayuda a crear conexiones con los espectadores.</p>
-                </li>
-                <li>
-                    <figure><img src="" alt=""></figure>
-                    <h3>Branding</h3>
-                    <p>Un lenguaje que permite decir mucho con poco. La ilustración ayuda a crear conexiones con los espectadores.</p>
-                </li>
-                <li>
-                    <figure><img src="" alt=""></figure>
-                    <h3>Rebranding</h3>
-                    <p>Un lenguaje que permite decir mucho con poco. La ilustración ayuda a crear conexiones con los espectadores.</p>
-                </li>
 
-            </ul>
+<?php
+$hero_tipo      = carbon_get_the_post_meta('ele_studio_hero_tipo');
+$hero_imagen_id = carbon_get_the_post_meta('ele_studio_hero_imagen');
+$hero_video_id  = carbon_get_the_post_meta('ele_studio_hero_video');
+
+$hero_imagen_url = $hero_imagen_id
+        ? wp_get_attachment_image_url($hero_imagen_id, 'full')
+        : get_template_directory_uri() . '/assets/images/cholas.png';
+
+// URL del video del hero (si existe)
+$hero_video_url = $hero_video_id ? wp_get_attachment_url($hero_video_id) : '';
+$servicios = carbon_get_the_post_meta('ele_studio_servicios');
+$equipo = carbon_get_the_post_meta('ele_studio_equipo_miembros');
+$galeria_equipo = carbon_get_the_post_meta('ele_studio_galeria_equipo');
+$galeria_trabajos = carbon_get_the_post_meta('ele_studio_galeria_trabajos');
+
+
+
+?>
+<div class="card bg-secundario text-gray-900 relative z-40 lg:mb-[900px]  md:mb-[600px] mb-[600px] pb-[100px] rounded-b-3xl">
+    <div class="card bg-light text-gray-900 relative z-40 lg:mb-[900px]  md:mb-[600px]  rounded-b-3xl flex flex-col">
+
+
+
+        <section class="hero studio">
+            <?php if ($hero_tipo === 'video' && $hero_video_url) : ?>
+                <video
+                        class="w-full h-full object-cover"
+                        autoplay
+                        muted
+                        loop
+                        playsinline
+                >
+                    <source src="<?php echo esc_url($hero_video_url); ?>" type="video/mp4">
+                    <!-- Fallback a imagen si el navegador no soporta video -->
+                    <img src="<?php echo esc_url($hero_imagen_url); ?>" alt="">
+                </video>
+            <?php else : ?>
+                <img
+                        class="w-full h-full object-cover"
+                        src="<?php echo esc_url($hero_imagen_url); ?>"
+                        alt=""
+                >
+            <?php endif; ?>
         </section>
-        <section class="somos">
-            <div class="discurso">
-                <p>Somos exploradores creativos que piensan diferete, se rien de las reglas y disfrutan transformar problemas en ideas brillantes.</p>
+        <?php if (!empty($servicios)) : ?>
+            <section class="especialidades bg-black rounded-3xl p-[15px] text-light relative -top-[20px] py-[60px]">
+                <ul class="flex flex-col gap-[35px] justify-center">
+                    <?php foreach ($servicios as $servicio) :
+
+                        $imagen_id  = $servicio['imagen'] ?? null;
+                        $titulo     = $servicio['titulo'] ?? '';
+                        $texto      = $servicio['texto'] ?? '';
+
+                        $imagen_url = $imagen_id
+                                ? wp_get_attachment_image_url($imagen_id, 'medium')
+                                : get_template_directory_uri() . '/assets/images/placeholder2.png';
+
+                        $alt = $titulo ?: 'Servicio';
+                        ?>
+                        <li>
+                            <img
+                                    class="block mx-auto mb-[15px]"
+                                    src="<?php echo esc_url($imagen_url); ?>"
+                                    alt="<?php echo esc_attr($alt); ?>"
+                            >
+                            <?php if ($titulo) : ?>
+                                <h3 class="font-serif font-bold italic text-[18px] mb-[15px]">
+                                    <?php echo esc_html($titulo); ?>
+                                </h3>
+                            <?php endif; ?>
+
+                            <?php if ($texto) : ?>
+                                <p class="font-sans font-light text-[14px]/5">
+                                    <?php echo esc_html($texto); ?>
+                                </p>
+                            <?php endif; ?>
+                        </li>
+                    <?php endforeach; ?>
+                </ul>
+            </section>
+        <?php endif; ?>
+
+        <section class="somos px-[30px] py-[60px] flex flex-col gap-[15px]">
+            <div class="discurso px-[15px] pb-[65px] font-serif font-bold text-[18px]/6 text-center">
+
+                <p class="mb-[1em]">Somos exploradores creativos que piensan diferete, se rien de las reglas y disfrutan transformar problemas en ideas brillantes.</p>
                 <p>Jugamos en serio con la magia del diseño para contar historias que empujan límites.</p>
             </div>
-            <ul class="integrantes">
-                <li>
-                    <figure><img src="" alt=""></figure>
-                    <h3>Estefanía López Escobar</h3>
-                    <p>Directora creativa</p>
-                </li>
-                <li>
-                    <figure><img src="" alt=""></figure>
-                    <h3>Maya Tejerina</h3>
-                    <p>Comercial & Redes Sociales</p>
-                </li>
-                <li>
-                    <figure><img src="" alt=""></figure>
-                    <h3>Alina Machaca</h3>
-                    <p>Diseñadora Gráfica Jr.</p>
-                </li>
-            </ul>
+            <?php if (!empty($equipo)) : ?>
+                <ul class="integrantes flex flex-col gap-[15px]">
+                    <?php foreach ($equipo as $miembro) :
+
+                        // Foto
+                        $foto_id  = $miembro['foto'] ?? null;
+                        $foto_url = $foto_id
+                                ? wp_get_attachment_image_url($foto_id, 'large')
+                                : get_template_directory_uri() . '/assets/images/placeholder2.png';
+
+                        // Texto
+                        $nombre = $miembro['nombre'] ?? '';
+                        $cargo  = $miembro['cargo'] ?? '';
+
+                        $alt = $nombre ?: 'Integrante del equipo';
+                        ?>
+
+                        <li>
+                            <img
+                                    class="block w-full mx-auto"
+                                    src="<?php echo esc_url($foto_url); ?>"
+                                    alt="<?php echo esc_attr($alt); ?>"
+                            >
+
+                            <?php if ($nombre) : ?>
+                                <h3 class="font-serif font-bold text-[18px]">
+                                    <?php echo esc_html($nombre); ?>
+                                </h3>
+                            <?php endif; ?>
+
+                            <?php if ($cargo) : ?>
+                                <p class="font-serif font-bold italic text-[14px]">
+                                    <?php echo esc_html($cargo); ?>
+                                </p>
+                            <?php endif; ?>
+                        </li>
+
+                    <?php endforeach; ?>
+                </ul>
+            <?php endif; ?>
+
         </section>
-        <section class="podrias">
-            <ul>
-                <li><figure><img src="" alt=""></figure>
-                    <p>ESTE PODRÍAS</p>
-                </li>
-                <li>
-                    <figure><img src="" alt=""></figure>
-                    <p>SER TU</p>
-                </li>
-            </ul>
-        </section>
-        <section class="gal"></section>
-        <section class="trabajo_equipo">
-            <ul><li><figure><img src="" alt=""></figure></li>
-                <li><figure><img src="" alt=""></figure></li>
-                <li><figure><img src="" alt=""></figure></li>
-            </ul>
+        <?php if (!empty($galeria_trabajos)) : ?>
+            <section class="gal py-10 space-y-2">
+                <!-- Fila 1: derecha → izquierda -->
+                <div class="gal-wrapper">
+                    <div class="gal-track gal-track-left">
+                        <?php
+                        // Bloque 1
+                        foreach ($galeria_trabajos as $item) :
+                            $imagen_id  = $item['imagen'] ?? null;
+                            $alt_text   = $item['alt'] ?? '';
+
+                            $imagen_url = $imagen_id
+                                    ? wp_get_attachment_image_url($imagen_id, 'large')
+                                    : get_template_directory_uri() . '/assets/images/placeholder.png';
+
+                            $alt = $alt_text ?: 'Trabajo del estudio';
+                            ?>
+                            <div class="gal-item">
+                                <img
+                                        src="<?php echo esc_url($imagen_url); ?>"
+                                        alt="<?php echo esc_attr($alt); ?>"
+                                >
+                            </div>
+                        <?php endforeach; ?>
+
+                        <?php
+                        // Bloque 2 (duplicado para cinta continua)
+                        foreach ($galeria_trabajos as $item) :
+                            $imagen_id  = $item['imagen'] ?? null;
+                            $alt_text   = $item['alt'] ?? '';
+
+                            $imagen_url = $imagen_id
+                                    ? wp_get_attachment_image_url($imagen_id, 'large')
+                                    : get_template_directory_uri() . '/assets/images/placeholder.png';
+
+                            $alt = $alt_text ?: 'Trabajo del estudio';
+                            ?>
+                            <div class="gal-item">
+                                <img
+                                        src="<?php echo esc_url($imagen_url); ?>"
+                                        alt="<?php echo esc_attr($alt); ?>"
+                                >
+                            </div>
+                        <?php endforeach; ?>
+                    </div>
+                </div>
+
+                <!-- Fila 2: izquierda → derecha -->
+                <div class="gal-wrapper">
+                    <div class="gal-track gal-track-right">
+                        <?php
+                        // Bloque 1
+                        foreach ($galeria_trabajos as $item) :
+                            $imagen_id  = $item['imagen'] ?? null;
+                            $alt_text   = $item['alt'] ?? '';
+
+                            $imagen_url = $imagen_id
+                                    ? wp_get_attachment_image_url($imagen_id, 'large')
+                                    : get_template_directory_uri() . '/assets/images/placeholder.png';
+
+                            $alt = $alt_text ?: 'Trabajo del estudio';
+                            ?>
+                            <div class="gal-item">
+                                <img
+                                        src="<?php echo esc_url($imagen_url); ?>"
+                                        alt="<?php echo esc_attr($alt); ?>"
+                                >
+                            </div>
+                        <?php endforeach; ?>
+
+                        <?php
+                        // Bloque 2 (duplicado para cinta continua)
+                        foreach ($galeria_trabajos as $item) :
+                            $imagen_id  = $item['imagen'] ?? null;
+                            $alt_text   = $item['alt'] ?? '';
+
+                            $imagen_url = $imagen_id
+                                    ? wp_get_attachment_image_url($imagen_id, 'large')
+                                    : get_template_directory_uri() . '/assets/images/placeholder.png';
+
+                            $alt = $alt_text ?: 'Trabajo del estudio';
+                            ?>
+                            <div class="gal-item">
+                                <img
+                                        src="<?php echo esc_url($imagen_url); ?>"
+                                        alt="<?php echo esc_attr($alt); ?>"
+                                >
+                            </div>
+                        <?php endforeach; ?>
+                    </div>
+                </div>
+            </section>
+        <?php endif; ?>
+
+
+        <section class="tripo px-[30px]">
+            <?php if (!empty($galeria_equipo)) : ?>
+                <ul class="flex flex-col gap-[15px] mb-[100px]">
+                    <?php foreach ($galeria_equipo as $item) :
+
+                        $imagen_id  = $item['imagen'] ?? null;
+                        $alt_text   = $item['alt'] ?? '';
+
+                        $imagen_url = $imagen_id
+                                ? wp_get_attachment_image_url($imagen_id, 'large')
+                                : get_template_directory_uri() . '/assets/images/placeholder2.png';
+
+                        $alt = $alt_text ?: 'Imagen de equipo / estudio';
+                        ?>
+
+                        <li>
+                            <img
+                                    class="block w-full mx-auto"
+                                    src="<?php echo esc_url($imagen_url); ?>"
+                                    alt="<?php echo esc_attr($alt); ?>"
+                            >
+                        </li>
+
+                    <?php endforeach; ?>
+                </ul>
+            <?php endif; ?>
         </section>
     </div>
 </div>

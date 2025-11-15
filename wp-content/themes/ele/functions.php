@@ -1,4 +1,90 @@
 <?php
+
+
+// CPT Proyectos
+add_action('init', 'ele_register_proyectos_cpt');
+
+function ele_register_proyectos_cpt()
+{
+
+    $labels = [
+        'name' => 'Proyectos',
+        'singular_name' => 'Proyecto',
+        'menu_name' => 'Proyectos',
+        'name_admin_bar' => 'Proyecto',
+        'add_new' => 'Añadir nuevo',
+        'add_new_item' => 'Añadir nuevo proyecto',
+        'edit_item' => 'Editar proyecto',
+        'new_item' => 'Nuevo proyecto',
+        'view_item' => 'Ver proyecto',
+        'view_items' => 'Ver proyectos',
+        'search_items' => 'Buscar proyectos',
+        'not_found' => 'No se encontraron proyectos',
+        'not_found_in_trash' => 'No hay proyectos en la papelera',
+        'all_items' => 'Todos los proyectos',
+    ];
+
+    $args = [
+        'labels' => $labels,
+        'public' => true,
+        'show_in_rest' => true,          // Compatible con editor de bloques
+        'has_archive' => true,          // /proyectos/
+        'rewrite' => ['slug' => 'proyectos'],
+        'menu_position' => 20,
+        'menu_icon' => 'dashicons-portfolio',
+        'supports' => ['title', 'editor', 'thumbnail', 'excerpt'],
+        'hierarchical' => false,
+    ];
+
+    register_post_type('proyecto', $args);
+}
+// Taxonomía para Proyectos: Categorías (Cultura, Educación, etc.)
+add_action( 'init', 'ele_register_proyecto_categorias' );
+
+function ele_register_proyecto_categorias() {
+
+    $labels = [
+        'name'              => 'Categorías de proyectos',
+        'singular_name'     => 'Categoría de proyecto',
+        'search_items'      => 'Buscar categorías',
+        'all_items'         => 'Todas las categorías',
+        'parent_item'       => 'Categoría superior',
+        'parent_item_colon' => 'Categoría superior:',
+        'edit_item'         => 'Editar categoría',
+        'update_item'       => 'Actualizar categoría',
+        'add_new_item'      => 'Añadir nueva categoría',
+        'new_item_name'     => 'Nombre de la nueva categoría',
+        'menu_name'         => 'Categorías de proyectos',
+    ];
+
+    $args = [
+        'hierarchical'      => true, // como las categorías de posts
+        'labels'            => $labels,
+        'show_ui'           => true,
+        'show_admin_column' => true,
+        'show_in_rest'      => true, // visible en Gutenberg / REST
+        'query_var'         => true,
+        'rewrite'           => [ 'slug' => 'categoria-proyecto' ],
+    ];
+
+    register_taxonomy( 'proyecto_categoria', [ 'proyecto' ], $args );
+}
+// Crear categorías por defecto para Proyectos
+add_action( 'init', 'ele_insert_default_proyecto_terms' );
+
+function ele_insert_default_proyecto_terms() {
+
+    $default_terms = [ 'Cultura', 'Educación', 'Negocios', 'Tecnología', 'Marca' ];
+
+    foreach ( $default_terms as $term_name ) {
+
+        if ( ! term_exists( $term_name, 'proyecto_categoria' ) ) {
+            wp_insert_term( $term_name, 'proyecto_categoria' );
+        }
+    }
+}
+
+
 function ele_enqueue_assets() {
     $css_path = get_stylesheet_directory() . '/assets/css/tw.build.css';
     $css_uri  = get_stylesheet_directory_uri() . '/assets/css/tw.build.css';
@@ -51,6 +137,16 @@ add_action('wp_enqueue_scripts', function () {
         null,
         true // en footer
     );
+    if ( is_page_template('work.php') || is_tax('proyecto_categoria') ) {
+        wp_enqueue_script(
+            'ele-modal-filter',
+            get_template_directory_uri() . '/assets/js/modal_filter.js',
+            [],        // dependencias (añade 'jquery' si lo usas)
+            '1.0',
+            true       // en el footer
+        );
+    }
+
 });
 if (!function_exists('ele_sanitize_tw_classes')) {
     /**

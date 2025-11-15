@@ -3,6 +3,8 @@ document.addEventListener('DOMContentLoaded', function () {
     const btnCerrar = document.getElementById('cerrar_menu');
     const overlay = document.querySelector('.menu_mobile');
     const panel = overlay ? overlay.querySelector('.cont_menu') : null;
+    const precarga = document.querySelector('.precarga');
+
 
     if (!btnAbrir || !btnCerrar || !overlay || !panel) return;
 
@@ -46,5 +48,22 @@ document.addEventListener('DOMContentLoaded', function () {
 
     overlay.addEventListener('click', function (e) {
         if (e.target === overlay) cerrarMenu();
+    });
+    if (!precarga) return;
+
+    window.addEventListener('load', function () {
+        // delay corto para que el logo se vea incluso en cargas rápidas
+        setTimeout(function () {
+            // dispara la animación del iris
+            precarga.classList.add('precarga--hide');
+
+            // cuando termina la transición, quitamos el elemento del flujo
+            const onTransitionEnd = () => {
+                precarga.style.display = 'none';
+                precarga.removeEventListener('transitionend', onTransitionEnd);
+            };
+
+            precarga.addEventListener('transitionend', onTransitionEnd);
+        }, 300);
     });
 });

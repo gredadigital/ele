@@ -1,5 +1,5 @@
 <?php
-/*Template Name: Work */
+
 get_header();
 ?>
 
@@ -9,8 +9,8 @@ $proyectos_destacados = carbon_get_the_post_meta('ele_work_proyectos_destacados'
 $equipo_img_id = carbon_get_the_post_meta('ele_work_equipo_imagen');
 
 $equipo_img_url = $equipo_img_id
-        ? wp_get_attachment_image_url($equipo_img_id, 'large')
-        : get_template_directory_uri() . '/assets/images/lplaceholder1.png';
+    ? wp_get_attachment_image_url($equipo_img_id, 'large')
+    : get_template_directory_uri() . '/assets/images/placeholder.png';
 
 // ALT: usamos un texto seguro
 $equipo_alt = $equipo_img_id ? 'Equipo de trabajo' : 'Placeholder';
@@ -25,58 +25,55 @@ $equipo_alt = $equipo_img_id ? 'Equipo de trabajo' : 'Placeholder';
         </section>
         <section class="gal">
 
-            <?php if (!empty($proyectos_destacados)) : ?>
+            <?php
+            // Obtenemos el término actual de la taxonomía
+            $term = get_queried_object();
+
+            // Consulta de proyectos de esta categoría
+            $args = [
+                'post_type'      => 'proyecto',
+                'posts_per_page' => -1,
+                'tax_query'      => [
+                    [
+                        'taxonomy' => 'proyecto_categoria',
+                        'field'    => 'term_id',          // también puede ser 'slug'
+                        'terms'    => $term->term_id,
+                    ],
+                ],
+            ];
+
+            $proyectos_query = new WP_Query($args);
+            ?>
+
+            <?php if ($proyectos_query->have_posts()) : ?>
                 <ul class="flex flex-col gap-[1px]">
-                    <?php foreach ($proyectos_destacados as $item) :
+                    <?php
+                    while ($proyectos_query->have_posts()) :
+                        $proyectos_query->the_post();
 
-                        // 1) Obtener ID del proyecto desde la association
-                        $proyecto_id = null;
-                        if (!empty($item['proyecto']) && is_array($item['proyecto'])) {
-                            $assoc = $item['proyecto'][0] ?? null;
-                            if (!empty($assoc['id'])) {
-                                $proyecto_id = (int) $assoc['id'];
-                            }
-                        }
-
-                        // Si no hay proyecto asociado, saltar este item
-                        if (!$proyecto_id) {
-                            continue;
-                        }
-
-                        // 2) URL del single
+                        $proyecto_id  = get_the_ID();
                         $proyecto_url = get_permalink($proyecto_id);
 
-                        // 3) Imagen representativa del proyecto (meta de ese post)
+                        // Imagen representativa del proyecto (meta de ese post)
                         $imagen_id = carbon_get_post_meta($proyecto_id, 'ele_proyecto_imagen_representativa');
                         $imagen_url = $imagen_id
-                                ? wp_get_attachment_image_url($imagen_id, 'large')
-                                : get_template_directory_uri() . '/assets/images/placeholder.png';
+                            ? wp_get_attachment_image_url($imagen_id, 'large')
+                            : get_template_directory_uri() . '/assets/images/placeholder.png';
 
-                        // 4) Título y descripción
-                        $titulo_proyecto = get_the_title($proyecto_id);
+                        // Título
+                        $titulo_visible = get_the_title($proyecto_id);
 
-                        // Título visible: usa titulo_custom si existe, si no el título del proyecto
-                        $titulo_custom   = $item['titulo_custom'] ?? '';
-                        $titulo_visible  = $titulo_custom ?: $titulo_proyecto;
-
-                        // Descripción: primero la del repeater, si no, la descripción larga del proyecto
-                        $descripcion_item = $item['descripcion'] ?? '';
-                        if (empty($descripcion_item)) {
-                            $descripcion_item = carbon_get_post_meta($proyecto_id, 'ele_proyecto_descripcion');
-                            // Opcional: limpiar etiquetas HTML si quieres que sea texto plano
-                            $descripcion_item = wp_strip_all_tags((string) $descripcion_item);
-                        }
-
-                        // Texto para el <p> dentro de .txt
-                        $txt_contenido = trim($descripcion_item) ?: $titulo_visible;
+                        // Descripción: primero meta larga, si no, título
+                        $descripcion_item = carbon_get_post_meta($proyecto_id, 'ele_proyecto_descripcion');
+                        $descripcion_item = wp_strip_all_tags((string) $descripcion_item);
+                        $txt_contenido    = trim($descripcion_item) ?: $titulo_visible;
                         ?>
-
                         <li>
                             <a href="<?php echo esc_url($proyecto_url); ?>">
                                 <img
-                                        class="w-full"
-                                        src="<?php echo esc_url($imagen_url); ?>"
-                                        alt="<?php echo esc_attr($titulo_visible); ?>"
+                                    class="w-full"
+                                    src="<?php echo esc_url($imagen_url); ?>"
+                                    alt="<?php echo esc_attr($titulo_visible); ?>"
                                 >
                             </a>
                             <div class="txt hidden">
@@ -85,14 +82,19 @@ $equipo_alt = $equipo_img_id ? 'Equipo de trabajo' : 'Placeholder';
                                 </p>
                             </div>
                         </li>
-
-                    <?php endforeach; ?>
+                    <?php endwhile; ?>
                 </ul>
+                <?php wp_reset_postdata(); ?>
+            <?php else : ?>
+                <p class="font-sans font-light text-[14px]/5 px-[19px] py-[20px]">
+                    No hay proyectos en esta categoría todavía.
+                </p>
             <?php endif; ?>
+
             <button
-                    id="open-project-filter"
-                    type="button"
-                    class="fixed z-[8888] bg-black flex justify-between
+                id="open-project-filter"
+                type="button"
+                class="fixed z-[8888] bg-black flex justify-between
            bottom-[60px] left-1/2 -translate-x-1/2
            w-[110px] pl-[12px] pr-[6px] py-[6px] rounded-full content-center
            translate-y-8 opacity-0 pointer-events-none
@@ -102,21 +104,24 @@ $equipo_alt = $equipo_img_id ? 'Equipo de trabajo' : 'Placeholder';
                 <span class="block h-[39px] w-[39px] bg-[url('../images/plus.svg')] bg-no-repeat bg-center bg-contain"></span>
             </button>
 
+
         </section>
+
+
 
 
     </div>
 
-<section class="renovar px-[44px] py-[60px] text-light bg-black flex flex-col justify-center">
-    <p class="font-sans font-light text-[40px]/9 mb-[44px] text-center ">¿Es momento de renovar tu marca?</p>
+    <section class="renovar px-[44px] py-[60px] text-light bg-black flex flex-col justify-center">
+        <p class="font-sans font-light text-[40px]/9 mb-[44px] text-center ">¿Es momento de renovar tu marca?</p>
         <a href="" class="bg-secundario p-[6px] flex gap-[4px] w-[180px] rounded-full flex justify-center mx-auto"><span class="text-black">Averiguémoslo</span> <span class="block w-[20px] h-[20px] bg-[url('../images/flecha_negra.svg')]"></span></a>
-</section>
+    </section>
 
     <div class="cont bg-orange rounded-3xl px-[58px] py-[100px]">
 
         <img
-                src="<?php echo esc_url($equipo_img_url); ?>"
-                alt="<?php echo esc_attr($equipo_alt); ?>"
+            src="<?php echo esc_url($equipo_img_url); ?>"
+            alt="<?php echo esc_attr($equipo_alt); ?>"
         >
         <p class="font-sans font-light text-[40px]/9 my-[50px] text-center">Somos un equipo pequeño pero poderoso</p>
         <div>
@@ -139,8 +144,8 @@ $equipo_alt = $equipo_img_id ? 'Equipo de trabajo' : 'Placeholder';
             <?php
             // ajusta el slug de la taxonomía si usaste otro
             $terms = get_terms([
-                    'taxonomy'   => 'proyecto_categoria',
-                    'hide_empty' => false,
+                'taxonomy'   => 'proyecto_categoria',
+                'hide_empty' => false,
             ]);
 
             if ( ! empty( $terms ) && ! is_wp_error( $terms ) ) :
@@ -149,8 +154,8 @@ $equipo_alt = $equipo_img_id ? 'Equipo de trabajo' : 'Placeholder';
                     ?>
                     <li>
                         <a
-                                href="<?php echo esc_url( $term_link ); ?>"
-                                class="block text-left text-xl font-sans font-light hover:underline"
+                            href="<?php echo esc_url( $term_link ); ?>"
+                            class="block text-left text-xl font-sans font-light hover:underline"
                         >
                             <?php echo esc_html( $term->name ); ?>
                         </a>

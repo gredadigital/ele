@@ -19,6 +19,7 @@
     --color-otrogris: #f4f4f4;
     --color-lightgrey: #c1c1c1;
     --color-orange: #FF7927;
+    --color-pink: #F696E0;
 
     /* Tipografías */
     --font-sans: "Noto Sans", system-ui, sans-serif;
@@ -285,4 +286,24 @@
 
 .menu_mobile nav .flex.flex-col li a{
     @apply p-0 block;
+}
+
+.precarga {
+    /* aseguramos que realmente cubre todo visualmente */
+    clip-path: circle(150% at 50% 50%);
+    -webkit-clip-path: circle(150% at 50% 50%);
+
+    transition:
+            clip-path 1s ease-in-out,
+            -webkit-clip-path 1s ease-in-out,
+            opacity 3s ease-in-out;
+}
+
+/* Estado final: círculo que se cierra en el centro y deja ver la página */
+.precarga--hide {
+    clip-path: circle(0% at 50% 50%);
+    -webkit-clip-path: circle(0% at 50% 50%);
+
+    opacity: 0;
+    pointer-events: none;
 }

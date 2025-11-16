@@ -17,10 +17,10 @@ $equipo_alt = $equipo_img_id ? 'Equipo de trabajo' : 'Placeholder';
 
 ?>
 <div class="card  mb-[600px] relative z-40">
-    <div class="card card bg-light text-gray-900 relative z-40 lg:mb-[900px]  md:mb-[600px]  rounded-b-3xl flex flex-col gap-38 pt-[120px] pb-[100px]">
-        <section class="hero px-[19px] py-[37px]">
+    <div class="card card bg-light text-gray-900 relative z-40 rounded-b-3xl flex flex-col gap-38 pt-[120px] pb-[100px]">
+        <section class="hero px-[19px] py-[37px] md:py-[60px] lg:px-[30%] lg:py-[120px]">
             <h2 class="font-serif font-bold italic text-[22px] mb-[22px] text-center">Nuestro trabajo</h2>
-            <p class="font-serif font-semibold text-[22px]/6 text-center">Universos mágicos con identidades y mensajes encantadores.
+            <p class="font-serif font-semibold text-[22px]/6 text-center lg:text-[32px]/9">Universos mágicos con identidades y mensajes encantadores.
                 Explora el trabajo que crea emociones fuertes y resultados tangibles.</p>
         </section>
         <section class="gal">
@@ -46,7 +46,7 @@ $equipo_alt = $equipo_img_id ? 'Equipo de trabajo' : 'Placeholder';
             ?>
 
             <?php if ($proyectos_query->have_posts()) : ?>
-                <ul class="flex flex-col gap-[1px]">
+                <ul class="flex flex-col gap-[1px] md:grid md:grid-cols-2">
                     <?php
                     while ($proyectos_query->have_posts()) :
                         $proyectos_query->the_post();
@@ -68,16 +68,27 @@ $equipo_alt = $equipo_img_id ? 'Equipo de trabajo' : 'Placeholder';
                         $descripcion_item = wp_strip_all_tags((string) $descripcion_item);
                         $txt_contenido    = trim($descripcion_item) ?: $titulo_visible;
                         ?>
-                        <li>
+                        <li class="relative group aspect-[4/3] overflow-hidden">
                             <a href="<?php echo esc_url($proyecto_url); ?>">
                                 <img
-                                    class="w-full"
+                                    class="w-full  h-full object-cover"
                                     src="<?php echo esc_url($imagen_url); ?>"
                                     alt="<?php echo esc_attr($titulo_visible); ?>"
                                 >
                             </a>
-                            <div class="txt hidden">
-                                <p class="font-sans font-light text-[14px]/5">
+                            <div class="txt
+                hidden md:flex      <!-- oculto en mobile, flex sólo en desktop -->
+                pointer-events-none  <!-- no bloquea el click del enlace -->
+                absolute inset-0 z-10
+                items-center justify-center
+                bg-primario
+                opacity-0
+                transition-opacity duration-200
+                md:group-hover:opacity-100">
+                                <p class="font-sans font-light text-[32px] leading-normal text-white text-center px-8
+                  transform -translate-y-[40px]               <!-- POSICIÓN INICIAL ARRIBA -->
+                  transition-transform duration-500 ease-out
+                  md:group-hover:translate-y-0">
                                     <?php echo esc_html($txt_contenido); ?>
                                 </p>
                             </div>
@@ -112,18 +123,18 @@ $equipo_alt = $equipo_img_id ? 'Equipo de trabajo' : 'Placeholder';
 
     </div>
 
-    <section class="renovar px-[44px] py-[60px] text-light bg-black flex flex-col justify-center">
-        <p class="font-sans font-light text-[40px]/9 mb-[44px] text-center ">¿Es momento de renovar tu marca?</p>
-        <a href="" class="bg-secundario p-[6px] flex gap-[4px] w-[180px] rounded-full flex justify-center mx-auto"><span class="text-black">Averiguémoslo</span> <span class="block w-[20px] h-[20px] bg-[url('../images/flecha_negra.svg')]"></span></a>
+    <section class="renovar px-[44px] py-[60px] text-light bg-black flex flex-col justify-center lg:py-[220px] lg:px-[30%] ">
+        <p class="font-sans font-light text-[40px]/9 mb-[44px] text-center lg:text-[64px]/14 lg:mb-[120px]">¿Es momento de renovar tu marca?</p>
+        <a href="" class="bg-secundario p-[6px] gap-[4px] w-[180px] rounded-full flex justify-center mx-auto"><span class="text-black">Averiguémoslo</span> <span class="block w-[20px] h-[20px] bg-[url('../images/flecha_negra.svg')]"></span></a>
     </section>
 
-    <div class="cont bg-orange rounded-3xl px-[58px] py-[100px]">
+    <div class="cont bg-orange rounded-3xl px-[58px] py-[100px] flex flex-col justify-center lg:px-[30%]">
 
-        <img
+        <img class="md:w-[300px] self-center"
             src="<?php echo esc_url($equipo_img_url); ?>"
             alt="<?php echo esc_attr($equipo_alt); ?>"
         >
-        <p class="font-sans font-light text-[40px]/9 my-[50px] text-center">Somos un equipo pequeño pero poderoso</p>
+        <p class="font-sans font-light text-[40px]/9 my-[50px] text-center  lg:text-[64px]/16">Somos un equipo pequeño pero poderoso</p>
         <div>
             <a href="" class="bg-black p-[6px] flex gap-[4px] w-[160px] mx-auto rounded-full justify-center"><span class="text-light">Conócenos</span> <span class="block w-[20px] h-[20px] bg-[url('../images/flecha.svg')]"></span></a>
         </div>

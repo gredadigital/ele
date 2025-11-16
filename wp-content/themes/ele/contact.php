@@ -3,18 +3,23 @@
 
 get_header('negativo'); ?>
 
+<?php
+$slides = carbon_get_the_post_meta('ele_contact_carousel');
+
+
+?>
 <main id="ele-landing" class="bg-white text-gray-900 relative z-40 lg:mb-[900px]  md:mb-[600px] mb-[600px] rounded-b-3xl">
 
 
 
     <!-- HERO -->
-    <section id="hero" class="mx-auto px-paddingm2  px-[60px] py-[120px] flex-col bg-black rounded-b-3xl ">
+    <section id="hero" class="mx-auto px-paddingm2  px-[60px] py-[120px] flex flex-col justify-center bg-black rounded-b-3xl lg:pb-[60px] ">
 
             <h3 class="text-light font-serif font-bold italic text-[16px] text-center">Hablemos</h3>
         <p class="text-light font-sans font-light text-[22px] text-center">¿Un proyecto nuevo?</p>
         <p class="text-light font-sans font-light text-center text-[22px] ">¿Una idea loca?</p>
         <p class="text-light font-sans font-light  text-center text-[22px]">¡Queremos saberlo todo!</p>
-
+        <img class="self-center hidden lg:block" src="<?php echo get_template_directory_uri(); ?>/assets/images/conejo.png" alt="">
 
     </section>
     <section class="hagamos px-[60px] py-[40px] text-center">
@@ -166,62 +171,44 @@ get_header('negativo'); ?>
 
         </form>
     </section>
-    <section class="acordion p-[15px]">
+    <section class="acordion p-[15px] pb-[60px] md:pb-[100px] md:px-[30px] lg:w-[700px]">
         <h3 class="font-sans font-light text-[22px]">Estas tienden a aparecer</h3>
-        <div class="item">
-            <div class="consulta flex justify-between border-lightgrey border-b py-[16px]">
-                <p class="font-serif font-bold italic text-[18px]">¿Con quién trabajan?</p>
-                <span class="inline-block w-[20px] h-[20px] bg-[url('../images/chevrondown.svg')]"></span>
-            </div>
-            <div class="respuesta py-[16px]">
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Assumenda, beatae consequatur fuga ipsum
-                    repudiandae sit. Laudantium numquam quos reiciendis sapiente totam! At commodi consequuntur,
-                    eligendi excepturi facilis fugiat laudantium, molestias nihil nisi quasi quis quod ratione, saepe
-                    sint tenetur? Rerum?</p>
-            </div>
-        </div>
-        <div class="item">
-            <div class="consulta flex justify-between border-lightgrey border-b py-[16px]">
-                <p class="font-serif font-bold italic text-[18px]">¿Cuánto suele costar un proyecto?</p>
-                <span class="inline-block w-[20px] h-[20px] bg-[url('../images/chevrondown.svg')]"></span>
-            </div>
-            <div class="respuesta py-[16px] hidden">
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Assumenda, beatae consequatur fuga ipsum
-                    repudiandae sit. Laudantium numquam quos reiciendis sapiente totam! At commodi consequuntur,
-                    eligendi excepturi facilis fugiat laudantium, molestias nihil nisi quasi quis quod ratione, saepe
-                    sint tenetur? Rerum?</p>
-            </div>
-        </div>
-        <div class="item">
-            <div class="consulta flex justify-between border-lightgrey border-b py-[16px]">
-                <p class="font-serif font-bold italic text-[18px]">¿Necesito un briefing?</p>
-                <span class="inline-block w-[20px] h-[20px] bg-[url('../images/chevrondown.svg')]"></span>
-            </div>
-            <div class="respuesta py-[16px] hidden">
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Assumenda, beatae consequatur fuga ipsum
-                    repudiandae sit. Laudantium numquam quos reiciendis sapiente totam! At commodi consequuntur,
-                    eligendi excepturi facilis fugiat laudantium, molestias nihil nisi quasi quis quod ratione, saepe
-                    sint tenetur? Rerum?</p>
-            </div>
-        </div>
-        <div class="item">
-            <div class="consulta flex justify-between border-lightgrey border-b py-[16px]">
-                <p class="font-serif font-bold italic text-[18px]">¿Hacen trabajo pro bono?</p>
-                <span class="inline-block w-[20px] h-[20px] bg-[url('../images/chevrondown.svg')]"></span>
-            </div>
-            <div class="respuesta py-[16px] hidden">
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Assumenda, beatae consequatur fuga ipsum
-                    repudiandae sit. Laudantium numquam quos reiciendis sapiente totam! At commodi consequuntur,
-                    eligendi excepturi facilis fugiat laudantium, molestias nihil nisi quasi quis quod ratione, saepe
-                    sint tenetur? Rerum?</p>
-            </div>
-        </div>
 
+        <?php
+        $slides = carbon_get_the_post_meta('ele_contact_carousel');
 
+        if ($slides) :
+            $index = 0;
+            foreach ($slides as $slide) :
+                $question = isset($slide['question']) ? $slide['question'] : '';
+                $answer   = isset($slide['answer']) ? $slide['answer'] : '';
+                $is_open  = ($index === 0); // el primero abierto, el resto cerrado
+                ?>
+                <div class="item mb:px-[30px]">
+                    <div class="consulta flex justify-between border-lightgrey border-b py-[16px] cursor-pointer">
+                        <?php if ($question) : ?>
+                            <p class="font-serif font-bold italic text-[18px]">
+                                <?php echo esc_html($question); ?>
+                            </p>
+                        <?php endif; ?>
+
+                        <span class="inline-block w-[20px] h-[20px] bg-[url('../images/chevrondown.svg')] transition-transform duration-300 <?php echo $is_open ? 'rotate-180' : ''; ?>"></span>
+                    </div>
+
+                    <div class="respuesta py-[16px] <?php echo $is_open ? '' : 'hidden'; ?>">
+                        <?php if ($answer) : ?>
+                            <div class="font-sans font-light text-[16px]/6">
+                                <?php echo apply_filters('the_content', $answer); ?>
+                            </div>
+                        <?php endif; ?>
+                    </div>
+                </div>
+                <?php
+                $index++;
+            endforeach;
+        endif;
+        ?>
     </section>
-
-
-
 
 
 </main>
@@ -277,6 +264,46 @@ get_header('negativo'); ?>
     </div>
 </div>
 
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const items = document.querySelectorAll('.acordion .item');
+
+        if (!items.length) return;
+
+        items.forEach(function(item) {
+            const consulta  = item.querySelector('.consulta');
+            const respuesta = item.querySelector('.respuesta');
+            const icono     = item.querySelector('.consulta span');
+
+            if (!consulta || !respuesta) return;
+
+            consulta.addEventListener('click', function () {
+                const isOpen = !respuesta.classList.contains('hidden');
+
+                // Cerrar todos los items
+                items.forEach(function(otherItem) {
+                    const otherRespuesta = otherItem.querySelector('.respuesta');
+                    const otherIcono     = otherItem.querySelector('.consulta span');
+
+                    if (otherRespuesta && !otherRespuesta.classList.contains('hidden')) {
+                        otherRespuesta.classList.add('hidden');
+                    }
+                    if (otherIcono && otherIcono.classList.contains('rotate-180')) {
+                        otherIcono.classList.remove('rotate-180');
+                    }
+                });
+
+                // Si el actual estaba cerrado, lo abrimos
+                if (!isOpen) {
+                    respuesta.classList.remove('hidden');
+                    if (icono) {
+                        icono.classList.add('rotate-180');
+                    }
+                }
+            });
+        });
+    });
+</script>
 
 
 <?php get_footer(); ?>

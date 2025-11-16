@@ -23,11 +23,11 @@ $galeria_trabajos = carbon_get_the_post_meta('ele_studio_galeria_trabajos');
 
 ?>
 <div class="card bg-secundario text-gray-900 relative z-40 lg:mb-[900px]  md:mb-[600px] mb-[600px] pb-[100px] rounded-b-3xl">
-    <div class="card bg-light text-gray-900 relative z-40 lg:mb-[900px]  md:mb-[600px]  rounded-b-3xl flex flex-col">
+    <div class="card bg-light text-gray-900 relative z-40 lg:mb-[100px]  md:mb-[100px]  rounded-b-3xl flex flex-col">
 
 
 
-        <section class="hero studio">
+        <section class="hero studio h-[360px] md:h-[400px] lg:h-[870px] overflow-hidden">
             <?php if ($hero_tipo === 'video' && $hero_video_url) : ?>
                 <video
                         class="w-full h-full object-cover"
@@ -49,8 +49,8 @@ $galeria_trabajos = carbon_get_the_post_meta('ele_studio_galeria_trabajos');
             <?php endif; ?>
         </section>
         <?php if (!empty($servicios)) : ?>
-            <section class="especialidades bg-black rounded-3xl p-[15px] text-light relative -top-[20px] py-[60px]">
-                <ul class="flex flex-col gap-[35px] justify-center">
+            <section class="especialidades bg-black rounded-3xl p-[15px] text-light relative -top-[20px] py-[60px] lg:px-[10%] lg-py-[60px]">
+                <ul class="flex flex-col md:flex-row gap-[35px] lg:gap-[60px] justify-center">
                     <?php foreach ($servicios as $servicio) :
 
                         $imagen_id  = $servicio['imagen'] ?? null;
@@ -65,7 +65,7 @@ $galeria_trabajos = carbon_get_the_post_meta('ele_studio_galeria_trabajos');
                         ?>
                         <li>
                             <img
-                                    class="block mx-auto mb-[15px]"
+                                    class="block mx-auto mb-[15px] md:w-full"
                                     src="<?php echo esc_url($imagen_url); ?>"
                                     alt="<?php echo esc_attr($alt); ?>"
                             >
@@ -87,13 +87,13 @@ $galeria_trabajos = carbon_get_the_post_meta('ele_studio_galeria_trabajos');
         <?php endif; ?>
 
         <section class="somos px-[30px] py-[60px] flex flex-col gap-[15px]">
-            <div class="discurso px-[15px] pb-[65px] font-serif font-bold text-[18px]/6 text-center">
+            <div class="discurso px-[15px] pb-[65px] font-serif font-bold text-[18px]/6 text-center md:px-[120px] md:pb-[120px] lg:px-[30%] lg:py-[120px]">
 
                 <p class="mb-[1em]">Somos exploradores creativos que piensan diferete, se rien de las reglas y disfrutan transformar problemas en ideas brillantes.</p>
                 <p>Jugamos en serio con la magia del diseño para contar historias que empujan límites.</p>
             </div>
             <?php if (!empty($equipo)) : ?>
-                <ul class="integrantes flex flex-col gap-[15px]">
+                <ul class="integrantes flex flex-col md:flex-row justify-center gap-[15px] flex-wrap">
                     <?php foreach ($equipo as $miembro) :
 
                         // Foto
@@ -231,7 +231,7 @@ $galeria_trabajos = carbon_get_the_post_meta('ele_studio_galeria_trabajos');
 
         <section class="tripo px-[30px]">
             <?php if (!empty($galeria_equipo)) : ?>
-                <ul class="flex flex-col gap-[15px] mb-[100px]">
+                <ul class="flex flex-col md:flex-row gap-[15px] mb-[100px] justify-center flex-wrap">
                     <?php foreach ($galeria_equipo as $item) :
 
                         $imagen_id  = $item['imagen'] ?? null;

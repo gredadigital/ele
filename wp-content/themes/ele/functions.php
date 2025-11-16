@@ -225,4 +225,51 @@ add_filter('nav_menu_link_attributes', function ($atts, $item, $args) {
     return $atts;
 }, 10, 3);
 
+/**
+ * Oculta Entradas y Comentarios del menú de administración
+ */
+add_action( 'admin_menu', 'ele_ocultar_posts_y_comentarios' );
+function ele_ocultar_posts_y_comentarios() {
+    // Oculta "Entradas"
+    remove_menu_page( 'edit.php' );
 
+    // Oculta "Comentarios"
+    remove_menu_page( 'edit-comments.php' );
+}
+
+/**
+ * Opcional: también oculta Comentarios de la barra superior de administración
+ */
+add_action( 'admin_bar_menu', 'ele_ocultar_comentarios_admin_bar', 999 );
+function ele_ocultar_comentarios_admin_bar( $wp_admin_bar ) {
+    $wp_admin_bar->remove_node( 'comments' );
+}
+
+/**
+ * Desactivar Gutenberg para Páginas y Proyectos
+ */
+add_filter( 'use_block_editor_for_post_type', 'ele_disable_gutenberg_for_post_types', 10, 2 );
+function ele_disable_gutenberg_for_post_types( $can_edit, $post_type ) {
+    $disabled_post_types = [ 'page', 'proyecto', 'proyectos' ]; // uso ambos por si tu CPT tiene uno u otro slug
+
+    if ( in_array( $post_type, $disabled_post_types, true ) ) {
+        return false;
+    }
+
+    return $can_edit;
+}
+
+/**
+ * Eliminar soporte del editor clásico para Páginas y Proyectos
+ * (esto oculta completamente la caja del editor)
+ */
+add_action( 'init', 'ele_remove_editor_support_from_post_types', 100 );
+function ele_remove_editor_support_from_post_types() {
+    $post_types = [ 'page', 'proyecto', 'proyectos' ];
+
+    foreach ( $post_types as $pt ) {
+        if ( post_type_exists( $pt ) ) {
+            remove_post_type_support( $pt, 'editor' );
+        }
+    }
+}

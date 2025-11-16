@@ -23,7 +23,7 @@
             // ul semántico con role="list" (mejor compatibilidad con tecnologías asistivas modernas)
             'items_wrap'     => '<ul role="list" class="%2$s">%3$s</ul>',
             // clases del <ul> (Tailwind)
-            'menu_class'     => 'flex flex-wrap gap-x-4 gap-y-2 items-center',
+            'menu_class'     => 'flex flex-wrap gap-x-4 gap-y-2 items-center text-light',
             'depth'          => 2, // por si tienes submenús
         ]);
         ?>

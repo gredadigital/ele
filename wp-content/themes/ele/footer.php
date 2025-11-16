@@ -24,7 +24,7 @@
     </div>
 </footer>
 <div class="precarga bg-primario h-screen-safe flex flex-col justify-center items-center fixed inset-0 z-[9999]">
-    <div class="w-[100px] h-[100px] md:w-[300px] md:h-[300px]  bg-[url('../images/logo_blanco.svg')] bg-no-repeat bg-center bg-contain"></div>
+    <div class="w-[100px] h-[100px] md:w-[200px] md:h-[200px] bg-[url('../images/logo_blanco.svg')] bg-no-repeat bg-center bg-contain"></div>
 </div>
 <?php wp_footer(); ?>
 </body>

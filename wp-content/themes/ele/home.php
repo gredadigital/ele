@@ -12,16 +12,17 @@ if (have_posts()) : while (have_posts()) : the_post(); ?>
 
 
 <div class="card bg-primario text-gray-900 relative z-40 lg:mb-[900px]  md:mb-[600px] mb-[600px] pb-[100px] rounded-b-3xl">
-    <div class="card bg-light text-gray-900 relative z-40 lg:mb-[900px]  md:mb-[600px]  rounded-b-3xl flex flex-col gap-38 pt-[100px]">
-        <section class="hero py-28"><h2 class="text-32/9 text-center font-sans">
-                <span>Bienvenido</span>
-                <span>al mundo donde</span>
-                <span>se crean marcas con magia.</span></h2>
+    <div class="card bg-light text-gray-900 relative z-40 lg:mb-[100px]  md:mb-[600px]  rounded-b-3xl flex flex-col gap-38 pt-[100px]">
+        <section class="hero py-28 md:px-[80px] md:py-[38px] lg:px-[20%]"><h2 class="text-32/9 text-center font-sans font-light lg:text-[64px]/14">
+                <span class="block lg:inline">Bienvenido</span>
+                <span class="block lg:inline">al mundo donde</span>
+                <span class="block lg:inline">se crean marcas</span>
+                <span class="block lg:inline">con magia.</span></h2>
         </section>
         <section class="separador bg-otrogris h-186"></section>
-        <section class="pretitulo_seleccionados px-63 py-38">
-            <h3 class="text-center font-serif italic font-bold text-16">Trabajos seleccionados</h3>
-            <p class="text-center font-sans text-22/7 font-light">Marcas que conectan con las personas a través de historias inolvidables</p>
+        <section class="pretitulo_seleccionados px-63 py-38 md:px-[180px] lg:px-[30%] lg:py-[160px]">
+            <h3 class="text-center font-serif italic font-bold text-16 lg:text-[22px]">Trabajos seleccionados</h3>
+            <p class="text-center font-sans text-22/7 lg:text-[32px]/9 font-light">Marcas que conectan con las personas a través de historias inolvidables</p>
         </section>
         <?php if (!empty($trabajos)) : ?>
             <section class="trabajos_seleccionados px-[30px] py-[9px] flex flex-col gap-[34px]">
@@ -31,7 +32,7 @@ if (have_posts()) : while (have_posts()) : the_post(); ?>
                     $imagen_id  = $trabajo['imagen'] ?? null;
                     $imagen_url = $imagen_id
                             ? wp_get_attachment_image_url($imagen_id, 'large')
-                            : get_template_directory_uri() . '/assets/images/placeholder.png';
+                            : get_template_directory_uri() . '/assets/images/placeholder_video.png';
 
                     // Asociación al proyecto (association)
                     $proyecto_id = null;
@@ -57,7 +58,7 @@ if (have_posts()) : while (have_posts()) : the_post(); ?>
                     $alt = $titulo ?: $proyecto_title ?: 'Trabajo seleccionado';
                     ?>
 
-                    <div class="seleccionado flex flex-col gap-[7px]">
+                    <div class="seleccionado flex flex-col gap-[7px] md:even:self-end md:odd:self-start md:w-[470px] lg:w-[742px] xl:w-[900px] 2xl:w-[900px] lg:px-[10%]">
 
                         <a href="<?php echo esc_url($proyecto_url); ?>">
                             <img
@@ -87,10 +88,10 @@ if (have_posts()) : while (have_posts()) : the_post(); ?>
         <?php endif; ?>
 
 
-        <section class="negocios px-[80px] py-[69px]">
+        <section class="negocios px-[80px] py-[69px] md:px-[240px]">
             <h3 class="font-serif font-bold italic text-center text-[24px]/6">Negocios que ayudamos a crear emociones intensas.</h3>
         </section>
-        <section class="logos px-[30px]">
+        <section class="logos px-[30px] md:px-[180px]">
             <ul class="logos flex flex-wrap justify-center align-middle items-center gap-x-[65px] gap-y-[34px]">
                 <li><img src="<?php echo get_template_directory_uri(); ?>/assets/images/typica.svg" alt=""></li>
                 <li><img src="<?php echo get_template_directory_uri(); ?>/assets/images/bcp.svg" alt=""></li>
@@ -99,7 +100,7 @@ if (have_posts()) : while (have_posts()) : the_post(); ?>
                 <li><img src="<?php echo get_template_directory_uri(); ?>/assets/images/master_blends.svg" alt=""></li>
             </ul>
         </section>
-        <section class="reunion px-[100px] py-[83px]">
+        <section class="reunion px-[100px] py-[83px] flex justify-center">
             <a href="#" class="inline-flex items-center justify-between gap-3 rounded-full bg-black text-white
           pl-5 pr-2 py-2">
                 <span class="text-sm font-medium">
@@ -191,9 +192,9 @@ if (have_posts()) : while (have_posts()) : the_post(); ?>
 
 
 
-        <section class="cierre px-[100px] py-[44px] text-[40px]/9 text-center flex flex-col gap-[52px]">
-            <h3 class="font-sans font-light ">¿Listo para una nueva aventura?</h3>
-            <div class="anim">
+        <section class="cierre px-[100px] py-[44px] text-[40px]/9 text-center flex flex-col gap-[52px] justify-center lg:px-[30%]">
+            <h3 class="font-sans font-light lg:text-[64px]/14">¿Listo para una nueva aventura?</h3>
+            <div class="anim text-center self-center">
                 <img src="<?php echo get_template_directory_uri(); ?>/assets/images/GifCaballero1.png" alt="">
             </div>
         </section>

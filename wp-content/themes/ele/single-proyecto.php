@@ -17,7 +17,7 @@ $hero_url = $hero_id
         ? wp_get_attachment_image_url($hero_id, 'full')
         : ($rep_id
                 ? wp_get_attachment_image_url($rep_id, 'large')
-                : get_template_directory_uri() . '/assets/images/lplaceholder3.png.png'
+                : get_template_directory_uri() . '/assets/images/lplaceholder3.png'
         );
 
 // Bloques (galeria, video, cita)
@@ -29,28 +29,29 @@ $bloques = carbon_get_the_post_meta('ele_proyecto_bloques');
 
 <?php if(have_posts()): while(have_posts()):the_post(); ?>
 <div class="card bg-pink text-gray-900 relative z-40 lg:mb-[900px]  md:mb-[600px] mb-[600px] pb-[100px] rounded-b-3xl">
-    <div class="card  bg-light text-gray-900 relative z-40 lg:mb-[900px]  md:mb-[600px]  rounded-b-3xl flex flex-col"">
-            <section class="hero">
+    <div class="card  bg-light text-gray-900 relative z-40 lg:mb-[100px]  md:mb-[100px]  rounded-b-3xl flex flex-col">
+            <section class="hero h-[360px] md:h-[400px] lg:h-[870px] overflow-hidden">
                 <img
+                        class="w-full h-full object-cover"
                         src="<?php echo esc_url($hero_url); ?>"
                         alt="<?php echo esc_attr(get_the_title()); ?>"
                 >
             </section>
-        <section class="px-[15px] py-[45px] relative -top-[20px] rounded-3xl bg-light">
+        <section class="px-[15px] py-[45px] relative -top-[20px] rounded-3xl bg-light md:px-[30px] lg:px-[10%]">
             <section class="desc">
                 <h2 class="font-serif font-bold italic text-[18px] mb-[1em]"><?php the_title(); ?></h2>
                 <?php if (!empty($slug_desc)) : ?>
                 <h3 class="slug font-serif font-bold text-[22px]/6 mb-[1em]"><?php echo esc_html($slug_desc); ?></h3>
                 <?php endif; ?>
                 <?php if (!empty($descripcion_proj)) : ?>
-                    <div class="proyecto-descripcion font-sans text-[15px]/6">
+                    <div class="proyecto-descripcion font-sans text-[15px]/6 js-proyecto-descripcion">
                         <?php echo apply_filters('the_content', $descripcion_proj); ?>
                     </div>
                 <?php endif; ?>
 
-                <button class="flex flex-row gap-[4px] my-[15px] content-center-safe"><span>Leer más</span><span class="block w-[14px] h-[14px] bg-cover bg-[url('../images/flecha_negra.svg')]"></span></button>
+                <button class="leer-mas-btn flex flex-row gap-[4px] my-[15px] content-center-safe"><span>Leer más</span><span class="block w-[14px] h-[14px] bg-cover bg-[url('../images/flecha_negra.svg')]"></span></button>
             </section>
-            <section class="contenido">
+            <section class="contenido flex flex-col justify-center md:px-[60px]">
                 <?php if (!empty($bloques)) : ?>
                     <?php foreach ($bloques as $bloque) :
                         $tipo = $bloque['_type'] ?? '';
@@ -116,7 +117,7 @@ $bloques = carbon_get_the_post_meta('ele_proyecto_bloques');
                                             $alt = $img_alt ?: 'Imagen del proyecto';
                                             ?>
                                             <li>
-                                                <img
+                                                <img class="w-full"
                                                         src="<?php echo esc_url($img_url); ?>"
                                                         alt="<?php echo esc_attr($alt); ?>"
                                                 >
@@ -210,6 +211,46 @@ $bloques = carbon_get_the_post_meta('ele_proyecto_bloques');
     </div>
 </div>
 <?php endwhile; endif; ?>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const container = document.querySelector('.js-proyecto-descripcion');
+        const btn = document.querySelector('.leer-mas-btn');
+
+        if (!container || !btn) return;
+
+        const paragraphs = container.querySelectorAll('p');
+
+        if (paragraphs.length === 0) return;
+
+        // Añadir mb-[1em] a todos los párrafos
+        paragraphs.forEach(p => p.classList.add('mb-[1em]'));
+
+        // Ocultar todos menos el primero
+        paragraphs.forEach((p, index) => {
+            if (index > 0) {
+                p.classList.add('hidden');
+            }
+        });
+
+        let expanded = false;
+
+        btn.addEventListener('click', function () {
+            expanded = !expanded;
+
+            paragraphs.forEach((p, index) => {
+                if (index > 0) {
+                    p.classList.toggle('hidden', !expanded);
+                }
+            });
+
+            // Texto del botón
+            btn.querySelector('span').textContent = expanded ? 'Leer menos' : 'Leer más';
+        });
+    });
+</script>
+
 <?php
+
+
 get_footer();
 ?>

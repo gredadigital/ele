@@ -1,5 +1,4 @@
 @import "tailwindcss";
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:wght@300;400;500&family=EB+Garamond:ital,wght@0,600;0,700;1,700&display=swap');
 
 /* Indica a Tailwind 4 dónde escanear contenido (rutas relativas a este CSS) */
 @source "../../*.php" "../../**/*.php";

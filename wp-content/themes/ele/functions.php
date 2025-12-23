@@ -1,12 +1,10 @@
 <?php
 
-
 // CPT Proyectos
 add_action('init', 'ele_register_proyectos_cpt');
 
 function ele_register_proyectos_cpt()
 {
-
     $labels = [
         'name' => 'Proyectos',
         'singular_name' => 'Proyecto',
@@ -28,7 +26,7 @@ function ele_register_proyectos_cpt()
         'labels' => $labels,
         'public' => true,
         'show_in_rest' => true,          // Compatible con editor de bloques
-        'has_archive' => true,          // /proyectos/
+        'has_archive' => true,           // /proyectos/
         'rewrite' => ['slug' => 'proyectos'],
         'menu_position' => 20,
         'menu_icon' => 'dashicons-portfolio',
@@ -38,11 +36,12 @@ function ele_register_proyectos_cpt()
 
     register_post_type('proyecto', $args);
 }
+
 // Taxonomía para Proyectos: Categorías (Cultura, Educación, etc.)
-add_action( 'init', 'ele_register_proyecto_categorias' );
+add_action('init', 'ele_register_proyecto_categorias');
 
-function ele_register_proyecto_categorias() {
-
+function ele_register_proyecto_categorias()
+{
     $labels = [
         'name'              => 'Categorías de proyectos',
         'singular_name'     => 'Categoría de proyecto',
@@ -64,41 +63,61 @@ function ele_register_proyecto_categorias() {
         'show_admin_column' => true,
         'show_in_rest'      => true, // visible en Gutenberg / REST
         'query_var'         => true,
-        'rewrite'           => [ 'slug' => 'categoria-proyecto' ],
+        'rewrite'           => ['slug' => 'categoria-proyecto'],
     ];
 
-    register_taxonomy( 'proyecto_categoria', [ 'proyecto' ], $args );
+    register_taxonomy('proyecto_categoria', ['proyecto'], $args);
 }
+
 // Crear categorías por defecto para Proyectos
-add_action( 'init', 'ele_insert_default_proyecto_terms' );
+add_action('init', 'ele_insert_default_proyecto_terms');
 
-function ele_insert_default_proyecto_terms() {
+function ele_insert_default_proyecto_terms()
+{
+    $default_terms = ['Cultura', 'Educación', 'Negocios', 'Tecnología', 'Marca'];
 
-    $default_terms = [ 'Cultura', 'Educación', 'Negocios', 'Tecnología', 'Marca' ];
-
-    foreach ( $default_terms as $term_name ) {
-
-        if ( ! term_exists( $term_name, 'proyecto_categoria' ) ) {
-            wp_insert_term( $term_name, 'proyecto_categoria' );
+    foreach ($default_terms as $term_name) {
+        if (!term_exists($term_name, 'proyecto_categoria')) {
+            wp_insert_term($term_name, 'proyecto_categoria');
         }
     }
 }
 
-
-function ele_enqueue_assets() {
+/**
+ * Enqueue de fuentes + Tailwind
+ * (Incluye preconnect recomendado para Google Fonts)
+ */
+function ele_enqueue_assets()
+{
     $css_path = get_stylesheet_directory() . '/assets/css/tw.build.css';
     $css_uri  = get_stylesheet_directory_uri() . '/assets/css/tw.build.css';
 
-    // Usa filemtime para hacer bust de caché en dev
-    $ver = file_exists( $css_path ) ? filemtime( $css_path ) : null;
+    $ver = file_exists($css_path) ? filemtime($css_path) : null;
 
-    wp_enqueue_style( 'ele-tailwind', $css_uri, [], $ver, 'all' );
+    // Google Fonts como stylesheet (evita problemas típicos de @import en builds)
+    wp_enqueue_style(
+        'google-fonts',
+        'https://fonts.googleapis.com/css2?family=Noto+Sans:wght@300;400;500&family=EB+Garamond:ital,wght@0,600;0,700;1,700&display=swap',
+        [],
+        null
+    );
+
+    // Tailwind build (dependiente de google-fonts para garantizar orden)
+    wp_enqueue_style('ele-tailwind', $css_uri, ['google-fonts'], $ver, 'all');
 }
-add_action( 'wp_enqueue_scripts', 'ele_enqueue_assets' );
+add_action('wp_enqueue_scripts', 'ele_enqueue_assets');
+
+// Preconnect para Google Fonts (mejora performance y estabilidad de carga)
+add_action('wp_head', function () {
+    echo '<link rel="preconnect" href="https://fonts.googleapis.com">';
+    echo '<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>';
+}, 1);
 
 add_action('wp_enqueue_scripts', function () {
+
     // Carga solo si la página actual usa la plantilla landing.php
     if (is_page_template('landing.php')) {
+
         // CSS del botón/modal de Google
         wp_enqueue_style(
             'gcal-scheduling-css',
@@ -117,7 +136,7 @@ add_action('wp_enqueue_scripts', function () {
         );
         wp_script_add_data('gcal-scheduling-js', 'async', true);
 
-        // Nuestro inicializador (lo crearemos en el siguiente paso)
+        // Nuestro inicializador
         $init_path = get_stylesheet_directory() . '/assets/js/gcal-init.js';
         $init_uri  = get_stylesheet_directory_uri() . '/assets/js/gcal-init.js';
 
@@ -130,44 +149,46 @@ add_action('wp_enqueue_scripts', function () {
             true
         );
     }
+
     wp_enqueue_script(
         'ele-menu-mobile',
         get_template_directory_uri() . '/assets/js/menu-mobile.js',
-        array(), // dependencias (por ahora vacío)
+        [], // dependencias (por ahora vacío)
         null,
         true // en footer
     );
-    if ( is_page_template('work.php') || is_tax('proyecto_categoria') ) {
+
+    if (is_page_template('work.php') || is_tax('proyecto_categoria')) {
         wp_enqueue_script(
             'ele-modal-filter',
             get_template_directory_uri() . '/assets/js/modal_filter.js',
-            [],        // dependencias (añade 'jquery' si lo usas)
+            [], // dependencias (añade 'jquery' si lo usas)
             '1.0',
-            true       // en el footer
+            true // en el footer
         );
     }
-
 });
+
 if (!function_exists('ele_sanitize_tw_classes')) {
     /**
      * Permite únicamente caracteres seguros para clases Tailwind:
      * letras, números, guiones, dos puntos, slash, corchetes, porcentaje y espacios.
      */
-    function ele_sanitize_tw_classes($value) {
+    function ele_sanitize_tw_classes($value)
+    {
         $value = wp_strip_all_tags((string)$value);
         return preg_replace('/[^a-zA-Z0-9\-\:\/\[\]\%\s]/', '', $value);
     }
 }
-
 
 // Shortcode [gcal_button] para usar DESDE la plantilla (no editor)
 add_shortcode('gcal_button', function ($atts) {
     $atts = shortcode_atts([
         'url'   => 'https://calendar.google.com/calendar/appointments/schedules/AcZssZ18rAPSDOo4f2nxVDn2Ps74qwyOCRGFNsZPFVj1fgEIfjPR8ORiPf0XBtogrOhlu6zisIFrUcru?gv=true',
         'label' => 'Haz una cita',
-        'color' => '#000',            // color para el modal de Google
-        'bg'    => 'bg-black',        // clase Tailwind de fondo
-        'text'  => 'text-white',      // clase Tailwind de texto
+        'color' => '#000',                 // color para el modal de Google
+        'bg'    => 'bg-black',             // clase Tailwind de fondo
+        'text'  => 'text-white',           // clase Tailwind de texto
         'font'  => 'font-sans font-regular' // clases Tailwind de tipografía
     ], $atts, 'gcal_button');
 
@@ -176,7 +197,7 @@ add_shortcode('gcal_button', function ($atts) {
     $atts['text'] = ele_sanitize_tw_classes($atts['text']);
     $atts['font'] = ele_sanitize_tw_classes($atts['font']);
 
-// Color del modal: usa el helper nativo de WP y haz fallback a #000
+    // Color del modal: usa el helper nativo de WP y haz fallback a #000
     $atts['color'] = sanitize_hex_color($atts['color']);
     if (!$atts['color']) {
         $atts['color'] = '#000';
@@ -208,6 +229,7 @@ add_shortcode('gcal_button', function ($atts) {
         esc_attr($atts['color'])
     );
 });
+
 // Registrar ubicaciones de menú
 add_action('after_setup_theme', function () {
     register_nav_menus([
@@ -228,31 +250,34 @@ add_filter('nav_menu_link_attributes', function ($atts, $item, $args) {
 /**
  * Oculta Entradas y Comentarios del menú de administración
  */
-add_action( 'admin_menu', 'ele_ocultar_posts_y_comentarios' );
-function ele_ocultar_posts_y_comentarios() {
+add_action('admin_menu', 'ele_ocultar_posts_y_comentarios');
+function ele_ocultar_posts_y_comentarios()
+{
     // Oculta "Entradas"
-    remove_menu_page( 'edit.php' );
+    remove_menu_page('edit.php');
 
     // Oculta "Comentarios"
-    remove_menu_page( 'edit-comments.php' );
+    remove_menu_page('edit-comments.php');
 }
 
 /**
  * Opcional: también oculta Comentarios de la barra superior de administración
  */
-add_action( 'admin_bar_menu', 'ele_ocultar_comentarios_admin_bar', 999 );
-function ele_ocultar_comentarios_admin_bar( $wp_admin_bar ) {
-    $wp_admin_bar->remove_node( 'comments' );
+add_action('admin_bar_menu', 'ele_ocultar_comentarios_admin_bar', 999);
+function ele_ocultar_comentarios_admin_bar($wp_admin_bar)
+{
+    $wp_admin_bar->remove_node('comments');
 }
 
 /**
  * Desactivar Gutenberg para Páginas y Proyectos
  */
-add_filter( 'use_block_editor_for_post_type', 'ele_disable_gutenberg_for_post_types', 10, 2 );
-function ele_disable_gutenberg_for_post_types( $can_edit, $post_type ) {
-    $disabled_post_types = [ 'page', 'proyecto', 'proyectos' ]; // uso ambos por si tu CPT tiene uno u otro slug
+add_filter('use_block_editor_for_post_type', 'ele_disable_gutenberg_for_post_types', 10, 2);
+function ele_disable_gutenberg_for_post_types($can_edit, $post_type)
+{
+    $disabled_post_types = ['page', 'proyecto', 'proyectos']; // uso ambos por si tu CPT tiene uno u otro slug
 
-    if ( in_array( $post_type, $disabled_post_types, true ) ) {
+    if (in_array($post_type, $disabled_post_types, true)) {
         return false;
     }
 
@@ -263,13 +288,14 @@ function ele_disable_gutenberg_for_post_types( $can_edit, $post_type ) {
  * Eliminar soporte del editor clásico para Páginas y Proyectos
  * (esto oculta completamente la caja del editor)
  */
-add_action( 'init', 'ele_remove_editor_support_from_post_types', 100 );
-function ele_remove_editor_support_from_post_types() {
-    $post_types = [ 'page', 'proyecto', 'proyectos' ];
+add_action('init', 'ele_remove_editor_support_from_post_types', 100);
+function ele_remove_editor_support_from_post_types()
+{
+    $post_types = ['page', 'proyecto', 'proyectos'];
 
-    foreach ( $post_types as $pt ) {
-        if ( post_type_exists( $pt ) ) {
-            remove_post_type_support( $pt, 'editor' );
+    foreach ($post_types as $pt) {
+        if (post_type_exists($pt)) {
+            remove_post_type_support($pt, 'editor');
         }
     }
 }
